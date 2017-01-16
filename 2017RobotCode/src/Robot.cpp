@@ -2,17 +2,33 @@
 #include <memory>
 #include <string>
 
+#include <VictorSP.h>
 #include <Joystick.h>
 #include <SampleRobot.h>
 #include <SmartDashboard/SendableChooser.h>
 #include <SmartDashboard/SmartDashboard.h>
 #include <RobotDrive.h>
 #include <Timer.h>
+#include <ADXRS450_Gyro.h>
+#include <Spark.h>
+#include <NetworkTable.h>
 
 
 class Robot: public frc::SampleRobot {
+	//Driving
 	frc::RobotDrive myRobot { 0, 1 };
 	frc::Joystick stick { 0 };
+
+	//Motors and Stuff
+	frc::VictorSP Kicker { 0 };
+	frc::VictorSP Shooter { 1 };
+	frc::VictorSP Climber { 2 };
+	frc::VictorSP Intank { 3 };
+	frc::VictorSP Agitator { 4 };
+
+
+	//Addons
+	frc::ADXRS450_Gyro gyro;
 	frc::SendableChooser<std::string> chooser;
 	const std::string autoNameDefault = "Default";
 	const std::string autoNameCustom = "My Auto";
