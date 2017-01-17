@@ -15,7 +15,7 @@
 #include <DoubleSolenoid.h>
 #include <CameraServer.h>
 #include <XboxController.h>
-
+#include <GenericHID.h>
 
 
 class Robot: public frc::SampleRobot {
@@ -85,7 +85,7 @@ public:
 			// wait for a motor update time
 			frc::Wait(0.005);
 
-			if (XboxC.GetRawButton(0)) //Hooper Alligator
+			if (XboxC.GetRawButton(1)) //Hooper Alligator
 			            {
 			                Agitator.Set(-1);
 			                Agitator.Set(1);
