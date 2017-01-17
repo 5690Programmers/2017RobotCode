@@ -14,20 +14,22 @@
 #include <NetworkTables/NetworkTable.h>
 #include <DoubleSolenoid.h>
 #include <CameraServer.h>
+#include <XboxController.h>
+
 
 
 class Robot: public frc::SampleRobot {
 	//Driving
 	frc::RobotDrive myRobot { 0, 1, 2, 3 };
 	frc::Joystick stick { 0 };
-
+	frc::XboxController XboxC { 1 };
 	//Motors and Stuff
 	frc::VictorSP Kicker { 0 };
 	frc::VictorSP Shooter { 1 };
 	frc::VictorSP Climber { 2 };
 	frc::VictorSP Intank { 3 };
 	frc::VictorSP Agitator { 4 };
-
+	frc::DoubleSolenoid Shifter { 0, 1 };
 
 	//Addons
 	frc::ADXRS450_Gyro gyro;
@@ -46,6 +48,8 @@ public:
 		chooser.AddObject(autoNameCustom, autoNameCustom);
 		frc::SmartDashboard::PutData("Auto Modes", &chooser);
 		frc::CameraServer::GetInstance()->StartAutomaticCapture();
+
+
 	}
 
 	//AUTONOMUS
@@ -80,6 +84,14 @@ public:
 
 			// wait for a motor update time
 			frc::Wait(0.005);
+
+			if (XboxC.GetRawButton(0)) //Hooper Alligator
+			            {
+			                Agitator.Set(-1);
+			                Agitator.Set(1);
+			                Wait(0.1);
+			                Agitator.Set(0);
+			            }
 		}
 	}
 
