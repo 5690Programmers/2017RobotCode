@@ -97,14 +97,16 @@ public:
 	//			}
 
 
-	void OperatorControl() override {
+	void OperatorControl() override
+	{
 		myRobot.SetSafetyEnabled(true);
-		while (IsOperatorControl() && IsEnabled()) {
-			// drive with arcade style (use right stick)
-			myRobot.ArcadeDrive(stick);
+		while (IsOperatorControl() && IsEnabled())
+		{
+		// drive with arcade style (use right stick)
+		myRobot.ArcadeDrive(stick);
 
-			// wait for a motor update time
-			frc::Wait(0.005);
+		// wait for a motor update time
+		frc::Wait(0.005);
 
 		//Fix so kicker kicks at X degrees and returns
 		if (Xbox.GetTriggerAxis(XboxController::JoystickHand(0))) //Left Trigger
@@ -156,6 +158,7 @@ public:
 			Shifter.Set(DoubleSolenoid::Value(0));
 			Wait(0.005);
 		}else
+		{
 			Shifter.Set(DoubleSolenoid::Value(1));
 			Wait(0.005);
 		}
@@ -168,15 +171,16 @@ public:
 
 		}
 
-
+		Wait(0.005);
 	}
+
+}
 
 	/*
 	 * Runs during test mode
 	 */
-	void Test() override {
-
+	void Test()
+    {
 	}
 };
-
 START_ROBOT_CLASS(Robot)
