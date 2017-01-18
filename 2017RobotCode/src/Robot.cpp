@@ -30,8 +30,8 @@ class Robot: public frc::SampleRobot {
 	frc::VictorSP Climber { 2 };
 	frc::VictorSP Intake { 3 };
 	frc::VictorSP Agitator { 4 };
-	frc::DoubleSolenoid Shifter { 0, 1 };
-
+	frc::DoubleSolenoid Shifter1 { 0, 1 };
+	frc::DoubleSolenoid Shifter2 { 2, 3 };
 	//Addons
 	frc::ADXRS450_Gyro gyro;
 	frc::SendableChooser<std::string> chooser;
@@ -153,13 +153,15 @@ public:
 			Climber.Set(0);
 		}
 
-		if (Xbox.GetXButton()&& Shifter.Get()!=0) //Shifter
+		if (Xbox.GetXButton()&& Shifter1.Get()!=0&& Shifter2.Get()!=0) //Shifter
 		{
-			Shifter.Set(DoubleSolenoid::Value(0));
+			Shifter1.Set(DoubleSolenoid::Value(1));
+			Shifter2.Set(DoubleSolenoid::Value(1));
 			Wait(0.005);
 		}else
 		{
-			Shifter.Set(DoubleSolenoid::Value(1));
+			Shifter1.Set(DoubleSolenoid::Value(2));
+			Shifter2.Set(DoubleSolenoid::Value(2));
 			Wait(0.005);
 		}
 		if (Xbox.GetYButton()) //Intake
