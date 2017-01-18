@@ -28,7 +28,7 @@ class Robot: public frc::SampleRobot {
 	frc::VictorSP Kicker { 0 };
 	frc::VictorSP Shooter { 1 };
 	frc::VictorSP Climber { 2 };
-	frc::VictorSP Intank { 3 };
+	frc::VictorSP Intake { 3 };
 	frc::VictorSP Agitator { 4 };
 	frc::DoubleSolenoid Shifter { 0, 1 };
 
@@ -106,6 +106,35 @@ public:
 			// wait for a motor update time
 			frc::Wait(0.005);
 
+		//Fix so kicker kicks at X degrees and returns
+		if (Xbox.GetTriggerAxis(XboxController::JoystickHand(0))) //Left Trigger
+		{
+			Kicker.Set(-1);
+			Wait(0.1);
+			Kicker.Set(0);
+		}
+		//Vision Tracking for Gear
+		if (Xbox.GetBumper(XboxController::JoystickHand(0)))
+		{
+
+		}
+
+		//Shooter Trigger
+		if (Xbox.GetTriggerAxis(XboxController::JoystickHand(1)))
+		{
+				Shooter.Set(1);
+				Wait(0.1);
+				Shooter.Set(0);
+
+		}
+		//Vision Tracking for Shooter
+		if (Xbox.GetBumper(XboxController::JoystickHand(1)))
+		{
+
+		}
+
+
+
 		if (Xbox.GetAButton()) //Hooper Alligator
 		{
 			Agitator.Set(-1);
@@ -122,10 +151,23 @@ public:
 			Climber.Set(0);
 		}
 
-		if (Xbox.GetXButton())
+		if (Xbox.GetXButton()&& Shifter.Get()!=0) //Shifter
 		{
+			Shifter.Set(DoubleSolenoid::Value(0));
+			Wait(0.005);
+		}else
+			Shifter.Set(DoubleSolenoid::Value(1));
+			Wait(0.005);
+		}
+		if (Xbox.GetYButton()) //Intake
+		{
+			Intake.Set(-1);
+			Intake.Set(1);
+			Wait(0.005);
+			Intake.Set(0);
 
 		}
+
 
 	}
 
