@@ -16,13 +16,14 @@
 #include <CameraServer.h>
 #include <XboxController.h>
 #include <GenericHID.h>
+#include <GamepadBase.h>
 
 
 class Robot: public frc::SampleRobot {
 	//Driving
 	frc::RobotDrive myRobot { 0, 1, 2, 3 };
 	frc::Joystick stick { 0 };
-	frc::XboxController XboxC { 1 };
+	frc::XboxController Xbox { 1 };
 	//Motors and Stuff
 	frc::VictorSP Kicker { 0 };
 	frc::VictorSP Shooter { 1 };
@@ -76,6 +77,26 @@ public:
 	}
 
 	//TELEOP
+	// FIXED: Vision Tracking on Bumpers and Shooting Mechanisms(Kicker and BallShooter) on respective Triggers
+
+	//**DRIVER PREF**
+	//Agitator on Y
+	//Climber on B
+	//Shifting on X
+	//Intake on A
+	//Left or Right Joystick for driving
+	//Possible HomeButton to 0* robot...
+
+	// Correct Format Complete (JoystickHand hand)			            }
+	//if (Xbox.GetBumper(JoystickHand hand) const override
+	//			{
+	//				Shooter.Set(1);
+	//				Shooter.Set(-1);
+	//				Wait(0.1);
+	//			Shooter.Set(0);
+	//			}
+
+
 	void OperatorControl() override {
 		myRobot.SetSafetyEnabled(true);
 		while (IsOperatorControl() && IsEnabled()) {
@@ -85,14 +106,27 @@ public:
 			// wait for a motor update time
 			frc::Wait(0.005);
 
-			if (XboxC.GetRawButton(1)) //Hooper Alligator
-			            {
-			                Agitator.Set(-1);
-			                Agitator.Set(1);
-			                Wait(0.1);
-			                Agitator.Set(0);
-			            }
+		if (Xbox.GetAButton()) //Hooper Alligator
+		{
+			Agitator.Set(-1);
+			Agitator.Set(1);
+			Wait(0.1);
+			Agitator.Set(0);
 		}
+
+		if (Xbox.GetBButton()) //Climber
+		{
+			Climber.Set(-1);
+			Climber.Set(1);
+			Wait(0.1);
+			Climber.Set(0);
+		}
+
+		if (Xbox.GetXButton())
+		{
+
+		}
+
 	}
 
 	/*
