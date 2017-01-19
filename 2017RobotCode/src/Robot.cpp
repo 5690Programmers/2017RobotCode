@@ -15,8 +15,6 @@
 #include <DoubleSolenoid.h>
 #include <CameraServer.h>
 #include <XboxController.h>
-#include <GenericHID.h>
-#include <GamepadBase.h>
 
 
 class Robot: public frc::SampleRobot {
