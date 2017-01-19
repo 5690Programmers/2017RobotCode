@@ -49,8 +49,7 @@ public:
 		chooser.AddObject(autoNameCustom, autoNameCustom);
 		frc::SmartDashboard::PutData("Auto Modes", &chooser);
 		frc::CameraServer::GetInstance()->StartAutomaticCapture();
-
-
+		gyro.Reset();
 	}
 
 	//AUTONOMUS
@@ -87,101 +86,98 @@ public:
 	//Left or Right Joystick for driving
 
 
-
 	void OperatorControl() override
 	{
 		myRobot.SetSafetyEnabled(true);
 		while (IsOperatorControl() && IsEnabled())
 		{
-		// drive with arcade style (use right stick)
-		myRobot.ArcadeDrive(Xbox);
+			// drive with arcade style (use right stick)
+			myRobot.ArcadeDrive( Xbox.GetX(XboxController::JoystickHand(0)), Xbox.GetY(XboxController::JoystickHand(0)));
 
-		// wait for a motor update time
-		frc::Wait(0.005);
+			// wait for a motor update time
+			frc::Wait(0.005);
 
-		//NOT TESTED
-		//Kicker Piston for Gear
-		if (Xbox.GetTriggerAxis(XboxController::JoystickHand(0)))
+			//NOT TESTED
+			//Kicker Piston for Gear
+			if (Xbox.GetTriggerAxis(XboxController::JoystickHand(0)))
 			{
 				Kicker.Set(DoubleSolenoid::Value(1));
 				Wait(0.005);
 			}
-		else
+			else
 			{
 				Kicker.Set(DoubleSolenoid::Value(2));
 				Wait(0.005);
 			}
-		//Vision Tracking for Gear
-		if (Xbox.GetBumper(XboxController::JoystickHand(0)))
+			//Vision Tracking for Gear
+			if (Xbox.GetBumper(XboxController::JoystickHand(0)))
 			{
 
 			}
 
-		//Shooter Trigger
-		if (Xbox.GetTriggerAxis(XboxController::JoystickHand(1)))
+			//Shooter Trigger
+			if (Xbox.GetTriggerAxis(XboxController::JoystickHand(1)))
 			{
 					Shooter.Set(1);
 					Wait(0.1);
 					Shooter.Set(0);
 
 			}
-		//Vision Tracking for Shooter
-		if (Xbox.GetBumper(XboxController::JoystickHand(1)))
+			//Vision Tracking for Shooter
+			if (Xbox.GetBumper(XboxController::JoystickHand(1)))
 			{
 
 			}
 
 
-		//Hooper Alligator ** Firmly cup the ball**
-		if (Xbox.GetAButton())
+			//Hooper Alligator ** Firmly cup the ball**
+			if (Xbox.GetAButton())
 			{
 				Agitator.Set(0.2);
 				Wait(0.1);
 				Agitator.Set(0);
 			}
 
-		//Climber Down
-		if (Xbox.GetBackButton())
+			//Climber Down
+			if (Xbox.GetBackButton())
 			{
 				Climber.Set(-1);
 				Wait(0.1);
 				Climber.Set(0);
 			}
 
-		//Climber Up
-		if (Xbox.GetStartButton())
+			//Climber Up
+			if (Xbox.GetStartButton())
 			{
 				Climber.Set(1);
 				Wait(0.1);
 				Climber.Set(0);
 			}
 
-		//Shifter
-		if (Xbox.GetXButton()&& Shifter1.Get()!=0&& Shifter2.Get()!=0)
+			//Shifter
+			if (Xbox.GetXButton()&& Shifter1.Get()!=0&& Shifter2.Get()!=0)
 			{
 				Shifter1.Set(DoubleSolenoid::Value(1));
 				Shifter2.Set(DoubleSolenoid::Value(1));
 				Wait(0.005);
 			}
-		else
+			else
 			{
 				Shifter1.Set(DoubleSolenoid::Value(2));
 				Shifter2.Set(DoubleSolenoid::Value(2));
 				Wait(0.005);
 			}
 
-		 //Intake
-		if (Xbox.GetYButton())
+			//Intake
+			if (Xbox.GetYButton())
 			{
 				Intake.Set(-1);
 				Wait(0.005);
 				Intake.Set(0);
 			}
+		}
 
-		Wait(0.005);
 	}
-
-}
 
 	/*
 	 * Runs during test mode
