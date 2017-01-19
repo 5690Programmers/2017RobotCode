@@ -96,6 +96,7 @@ public:
 
 			// wait for a motor update time
 			frc::Wait(0.005);
+			// Logan - Remove all the waits in here except the one above this and replace every thing with and else statements
 
 			//NOT TESTED
 			//Kicker Piston for Gear
