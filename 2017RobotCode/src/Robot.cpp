@@ -47,7 +47,7 @@ public:
 		chooser.AddObject(autoNameCustom, autoNameCustom);
 		frc::SmartDashboard::PutData("Auto Modes", &chooser);
 		frc::CameraServer::GetInstance()->StartAutomaticCapture();
-		gyro.Reset();
+		gyro.Reset(); // sets front to 0 degrees 0 degrees
 	}
 
 	//AUTONOMUS
@@ -94,7 +94,6 @@ public:
 
 			// wait for a motor update time
 			frc::Wait(0.005);
-			// Logan - Remove all the waits in here except the one above this and replace every thing with and else statements
 
 			//NOT TESTED
 			//Kicker Piston for Gear
@@ -106,6 +105,7 @@ public:
 			{
 				Kicker.Set(DoubleSolenoid::Value(2));
 			}
+
 			//Vision Tracking for Gear
 			if (Xbox.GetBumper(XboxController::JoystickHand(0)))
 			{
@@ -120,12 +120,12 @@ public:
 			{
 				Shooter.Set(0);
 			}
+
 			//Vision Tracking for Shooter
 			if (Xbox.GetBumper(XboxController::JoystickHand(1)))
 			{
 
 			}
-
 
 			//Hooper Alligator ** Firmly cup the ball**
 			if (Xbox.GetAButton())
