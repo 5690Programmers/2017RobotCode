@@ -49,8 +49,7 @@ public:
 		chooser.AddObject(autoNameCustom, autoNameCustom);
 		frc::SmartDashboard::PutData("Auto Modes", &chooser);
 		frc::CameraServer::GetInstance()->StartAutomaticCapture();
-
-
+		gyro.Reset();
 	}
 
 	//AUTONOMUS
