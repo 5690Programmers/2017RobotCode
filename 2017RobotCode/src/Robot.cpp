@@ -103,12 +103,10 @@ public:
 			if (Xbox.GetTriggerAxis(XboxController::JoystickHand(0)))
 			{
 				Kicker.Set(DoubleSolenoid::Value(1));
-				Wait(0.005);
 			}
 			else
 			{
 				Kicker.Set(DoubleSolenoid::Value(2));
-				Wait(0.005);
 			}
 			//Vision Tracking for Gear
 			if (Xbox.GetBumper(XboxController::JoystickHand(0)))
@@ -119,10 +117,10 @@ public:
 			//Shooter Trigger
 			if (Xbox.GetTriggerAxis(XboxController::JoystickHand(1)))
 			{
-					Shooter.Set(1);
-					Wait(0.1);
-					Shooter.Set(0);
-
+				Shooter.Set(1);
+			}else
+			{
+				Shooter.Set(0);
 			}
 			//Vision Tracking for Shooter
 			if (Xbox.GetBumper(XboxController::JoystickHand(1)))
@@ -135,7 +133,8 @@ public:
 			if (Xbox.GetAButton())
 			{
 				Agitator.Set(0.2);
-				Wait(0.1);
+			}else
+			{
 				Agitator.Set(0);
 			}
 
@@ -143,7 +142,8 @@ public:
 			if (Xbox.GetBackButton())
 			{
 				Climber.Set(-1);
-				Wait(0.1);
+			}else
+			{
 				Climber.Set(0);
 			}
 
@@ -151,7 +151,8 @@ public:
 			if (Xbox.GetStartButton())
 			{
 				Climber.Set(1);
-				Wait(0.1);
+			}else
+			{
 				Climber.Set(0);
 			}
 
@@ -160,20 +161,19 @@ public:
 			{
 				Shifter1.Set(DoubleSolenoid::Value(1));
 				Shifter2.Set(DoubleSolenoid::Value(1));
-				Wait(0.005);
 			}
 			else
 			{
 				Shifter1.Set(DoubleSolenoid::Value(2));
 				Shifter2.Set(DoubleSolenoid::Value(2));
-				Wait(0.005);
 			}
 
 			//Intake
 			if (Xbox.GetYButton())
 			{
 				Intake.Set(-1);
-				Wait(0.005);
+			}else
+			{
 				Intake.Set(0);
 			}
 		}
