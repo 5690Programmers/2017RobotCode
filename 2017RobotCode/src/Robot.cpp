@@ -60,9 +60,17 @@ public:
 			// Custom Auto goes here
 			std::cout << "Running custom Autonomous" << std::endl;
 			myRobot.SetSafetyEnabled(false);
-			myRobot.Drive(-0.5, 1.0); // spin at half speed
-			frc::Wait(2.0);                // for 2 seconds
-			myRobot.Drive(0.0, 0.0);  // stop robot
+			Shifter1.Set(DoubleSolenoid::Value(2));
+			Shifter2.Set(DoubleSolenoid::Value(2));
+			Wait(0.0005);
+			myRobot.Drive(0, 0.5);
+			Wait(2);
+			Shifter1.Set(DoubleSolenoid::Value(1));
+			Shifter2.Set(DoubleSolenoid::Value(1));
+			Wait(0.0005);
+			myRobot.Drive(0, 0.5);
+			Wait(2);
+			myRobot.Drive(0, 0);
 		} else {
 			// Default Auto goes here
 			std::cout << "Running default Autonomous" << std::endl;
