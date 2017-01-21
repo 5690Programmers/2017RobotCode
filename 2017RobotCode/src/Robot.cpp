@@ -19,7 +19,7 @@
 
 class Robot: public frc::SampleRobot {
 	//Driving
-	frc::RobotDrive myRobot { 0, 1, 2, 3 };
+	frc::RobotDrive myRobot { 0, 1, 2, 3, 4, 5 };
 	frc::Joystick stick { 1 };
 	frc::XboxController Xbox { 0 };
 	//Motors and Stuff
@@ -62,12 +62,10 @@ public:
 			myRobot.SetSafetyEnabled(false);
 			Shifter1.Set(DoubleSolenoid::Value(2));
 			Shifter2.Set(DoubleSolenoid::Value(2));
-			Wait(0.0005);
 			myRobot.Drive(0, 0.5);
 			Wait(2);
 			Shifter1.Set(DoubleSolenoid::Value(1));
 			Shifter2.Set(DoubleSolenoid::Value(1));
-			Wait(0.0005);
 			myRobot.Drive(0, 0.5);
 			Wait(2);
 			myRobot.Drive(0, 0);
