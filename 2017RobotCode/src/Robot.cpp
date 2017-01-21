@@ -19,7 +19,7 @@
 
 class Robot: public frc::SampleRobot {
 	//Driving
-	frc::RobotDrive myRobot { 0, 1, 2, 3 };
+	frc::RobotDrive myRobot { 0, 1, 2, 3, 4, 5 };
 	frc::Joystick stick { 1 };
 	frc::XboxController Xbox { 0 };
 	//Motors and Stuff
@@ -60,9 +60,15 @@ public:
 			// Custom Auto goes here
 			std::cout << "Running custom Autonomous" << std::endl;
 			myRobot.SetSafetyEnabled(false);
-			myRobot.Drive(-0.5, 1.0); // spin at half speed
-			frc::Wait(2.0);                // for 2 seconds
-			myRobot.Drive(0.0, 0.0);  // stop robot
+			Shifter1.Set(DoubleSolenoid::Value(2));
+			Shifter2.Set(DoubleSolenoid::Value(2));
+			myRobot.Drive(0, 0.5);
+			Wait(2);
+			Shifter1.Set(DoubleSolenoid::Value(1));
+			Shifter2.Set(DoubleSolenoid::Value(1));
+			myRobot.Drive(0, 0.5);
+			Wait(2);
+			myRobot.Drive(0, 0);
 		} else {
 			// Default Auto goes here
 			std::cout << "Running default Autonomous" << std::endl;
