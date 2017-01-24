@@ -21,7 +21,7 @@
 
 class Robot: public frc::SampleRobot {
 	//Driving
-	frc::RobotDrive myRobot { 0, 1, 2, 3 };
+	frc::RobotDrive myRobot { 0, 1, 2, 3};
 	frc::Joystick stick { 1 };
 	frc::XboxController Xbox { 0 };
 	//Motors and Stuff
@@ -62,7 +62,7 @@ public:
 			// Custom Auto goes here
 			std::cout << "Running custom Autonomous" << std::endl;
 			myRobot.SetSafetyEnabled(false);
-			myRobot.Drive(-0.5, 1.0); // spin at half speed
+			myRobot.Drive(0, 1.0); // spin at half speed
 			frc::Wait(2.0);                // for 2 seconds
 			myRobot.Drive(0.0, 0.0);  // stop robot
 		} else {
@@ -93,7 +93,7 @@ public:
 		while (IsOperatorControl() && IsEnabled())
 		{
 		// drive with arcade style (use right stick)
-		myRobot.ArcadeDrive( Xbox.GetX(XboxController::JoystickHand(0)), Xbox.GetY(XboxController::JoystickHand(0)));
+		myRobot.ArcadeDrive( Xbox.GetY(XboxController::JoystickHand(0)), Xbox.GetX(XboxController::JoystickHand(0))/2);
 
 		// wait for a motor update time
 		frc::Wait(0.005);
