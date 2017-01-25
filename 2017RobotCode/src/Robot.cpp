@@ -93,12 +93,24 @@ public:
 		while (IsOperatorControl() && IsEnabled())
 		{
 		// drive with arcade style (use right stick)
+		double deadzone = 0.3;
+		double y = 0;
+		double x = 0;
+
 		myRobot.ArcadeDrive( Xbox.GetY(XboxController::JoystickHand(0)), Xbox.GetX(XboxController::JoystickHand(0))/2);
 
 		// wait for a motor update time
 		frc::Wait(0.005);
 
 		//NOT TESTED
+
+		if(Xbox.GetX(XboxController::JoystickHand(0)) > deadzone || Xbox.GetX(XboxController::JoystickHand(0)) < -deadzone) {
+				x = Xbox.GetX(XboxController::JoystickHand(0));
+				}
+		if(Xbox.GetY(XboxController::JoystickHand(0)) > deadzone || Xbox.GetY(XboxController::JoystickHand(0)) < -deadzone) {
+						y = Xbox.GetY(XboxController::JoystickHand(0));
+						}
+
 		//Kicker Piston for Gear
 		if (Xbox.GetTriggerAxis(XboxController::JoystickHand(0)))
 			{
