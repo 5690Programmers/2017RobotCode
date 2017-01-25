@@ -93,7 +93,7 @@ public:
 		while (IsOperatorControl() && IsEnabled())
 		{
 		// drive with arcade style (use right stick)
-		myRobot.ArcadeDrive( Xbox.GetY(XboxController::JoystickHand(0)), Xbox.GetX(XboxController::JoystickHand(0))/2);
+		myRobot.ArcadeDrive( Xbox.GetY(XboxController::JoystickHand(0)), Xbox.GetX(XboxController::JoystickHand(0))/2, true);
 
 		// wait for a motor update time
 		frc::Wait(0.005);
