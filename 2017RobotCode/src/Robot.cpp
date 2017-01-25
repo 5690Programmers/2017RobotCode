@@ -36,12 +36,12 @@ class Robot: public frc::SampleRobot {
 	frc::DoubleSolenoid Shifter2 { 2, 3 };
 	//Add ons
 	frc::ADXRS450_Gyro gyro;
-	NetworkTable Steven;
+	//NetworkTable Steven;
 	frc::SendableChooser<std::string> chooser;
 	const std::string autoNameDefault = "Default";
 	const std::string autoNameCustom = "My Auto";
 	//Jetson
-	NetworkTable Steven;
+
 
 
 public:
@@ -60,11 +60,11 @@ public:
 		frc::SmartDashboard::PutData("Auto Modes", &chooser);
 		frc::CameraServer::GetInstance()->StartAutomaticCapture();
 		gyro.Reset();
-		Steven.SetTeam(5690);
-		Steven.Initialize();
-		Steven.SetUpdateRate(0.3);
-		Steven.SetPort(5800);
-		Steven.SetIPAddress("10.56.90.2");
+//		Steven.SetTeam(5690);
+//		Steven.Initialize();
+//		Steven.SetUpdateRate(0.3);
+//		Steven.SetPort(5800);
+//		Steven.SetIPAddress("10.56.90.2");
 
 	}
 
@@ -111,8 +111,8 @@ public:
 		// drive with arcade style (use right stick)
 
 		double deadzone = 0.3;
-		double y = 0;
-		double x = 0;
+		//double y = 0;
+		//double x = 0;
 
 		myRobot.ArcadeDrive( Xbox.GetY(XboxController::JoystickHand(0)), Xbox.GetX(XboxController::JoystickHand(0))/2);
 
@@ -122,10 +122,10 @@ public:
 		//NOT TESTED
 
 		if(Xbox.GetX(XboxController::JoystickHand(0)) > deadzone || Xbox.GetX(XboxController::JoystickHand(0)) < -deadzone) {
-				x = Xbox.GetX(XboxController::JoystickHand(0));
+				Xbox.GetX(XboxController::JoystickHand(0));
 				}
 		if(Xbox.GetY(XboxController::JoystickHand(0)) > deadzone || Xbox.GetY(XboxController::JoystickHand(0)) < -deadzone) {
-						y = Xbox.GetY(XboxController::JoystickHand(0));
+						Xbox.GetY(XboxController::JoystickHand(0));
 						}
 
 		//Kicker Piston for Gear
