@@ -121,6 +121,7 @@ public:
 			y = Xbox.GetY(XboxController::JoystickHand(0));
 		}
 		// drive with arcade style (use right stick)
+		myRobot.ArcadeDrive( y, x/2, true);
 
 		// wait for a motor update time
 		frc::Wait(0.005);
