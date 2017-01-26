@@ -108,107 +108,107 @@ public:
 		myRobot.SetSafetyEnabled(true);
 		while (IsOperatorControl() && IsEnabled())
 		{
-		// drive with arcade style (use right stick)
-
 		double deadzone = 0.3;
-		//double y = 0;
-		//double x = 0;
+		double MaxAxisRange = 1; // we need to find this
+		double y ;
+		double x ;
+		//NOT TESTED    "but will work now" -Logan
 
-		myRobot.ArcadeDrive( Xbox.GetY(XboxController::JoystickHand(0)), Xbox.GetX(XboxController::JoystickHand(0))/2);
+		if(Xbox.GetX(XboxController::JoystickHand(0))/MaxAxisRange > deadzone || Xbox.GetX(XboxController::JoystickHand(0))/MaxAxisRange < -deadzone) {
+			x = Xbox.GetX(XboxController::JoystickHand(0));
+		}
+		if(Xbox.GetY(XboxController::JoystickHand(0)) > deadzone || Xbox.GetY(XboxController::JoystickHand(0)) < -deadzone) {
+			y = Xbox.GetY(XboxController::JoystickHand(0));
+		}
+		// drive with arcade style (use right stick)
 
 		// wait for a motor update time
 		frc::Wait(0.005);
 
-		//NOT TESTED
 
-		if(Xbox.GetX(XboxController::JoystickHand(0)) > deadzone || Xbox.GetX(XboxController::JoystickHand(0)) < -deadzone) {
-				Xbox.GetX(XboxController::JoystickHand(0));
-				}
-		if(Xbox.GetY(XboxController::JoystickHand(0)) > deadzone || Xbox.GetY(XboxController::JoystickHand(0)) < -deadzone) {
-						Xbox.GetY(XboxController::JoystickHand(0));
-						}
 
 		//Kicker Piston for Gear
 		if (Xbox.GetTriggerAxis(XboxController::JoystickHand(0)))
-			{
-				Kicker.Set(DoubleSolenoid::Value(1));
-				Wait(0.005);
-			}
+		{
+			Kicker.Set(DoubleSolenoid::Value(1));
+			Wait(0.005);
+		}
 		else
-			{
-				Kicker.Set(DoubleSolenoid::Value(2));
-				Wait(0.005);
-			}
+		{
+			Kicker.Set(DoubleSolenoid::Value(2));
+			Wait(0.005);
+		}
 		//Vision Tracking for Gear
 		if (Xbox.GetBumper(XboxController::JoystickHand(0)))
-			{
+		{
 
-			}
+		}
 
 		//Shooter Trigger
 		if (Xbox.GetTriggerAxis(XboxController::JoystickHand(1)))
-			{
-					Shooter.Set(1);
-					Wait(0.1);
-					Shooter.Set(0);
-
-			}
+		{
+				Shooter.Set(1);
+		}else
+		{
+				Shooter.Set(0);
+		}
 		//Vision Tracking for Shooter
 		if (Xbox.GetBumper(XboxController::JoystickHand(1)))
-			{
+		{
 
-			}
+		}
 
 
 		//Hooper Alligator ** Firmly cup the ball**
 		if (Xbox.GetAButton())
-			{
-				Agitator.Set(0.2);
-				Wait(0.1);
-				Agitator.Set(0);
-			}
+		{
+			Agitator.Set(0.2);
+		}else
+		{
+			Agitator.Set(0);
+		}
 
 		//Climber Down
 		if (Xbox.GetBackButton())
-			{
-				Climber.Set(-1);
-				Wait(0.1);
-				Climber.Set(0);
-			}
+		{
+			Climber.Set(-1); //do you want this to be 100%?
+		}else
+		{
+			Climber.Set(0);
+		}
 
 		//Climber Up
 		if (Xbox.GetStartButton())
-			{
-				Climber.Set(1);
-				Wait(0.1);
-				Climber.Set(0);
-			}
+		{
+			Climber.Set(1); //do you want this to be 100%?
+		}else
+		{
+			Climber.Set(0);
+		}
 
 		//Shifter
-		if (Xbox.GetXButton()&& Shifter1.Get()!=0&& Shifter2.Get()!=0)
-			{
-				Shifter1.Set(DoubleSolenoid::Value(1));
-				Shifter2.Set(DoubleSolenoid::Value(1));
-				Wait(0.005);
-			}
-		else
-			{
-				Shifter1.Set(DoubleSolenoid::Value(2));
-				Shifter2.Set(DoubleSolenoid::Value(2));
-				Wait(0.005);
-			}
+		if (Xbox.GetXButton()&& Shifter1.Get()!=0 && Shifter2.Get()!=0)
+		{
+			Shifter1.Set(DoubleSolenoid::Value(1));
+			Shifter2.Set(DoubleSolenoid::Value(1));
+			Wait(0.005);
+		}
+		else if (Xbox.GetXButton())
+		{
+			Shifter1.Set(DoubleSolenoid::Value(2));
+			Shifter2.Set(DoubleSolenoid::Value(2));
+			Wait(0.005);
+		}
 
 		 //Intake
 		if (Xbox.GetYButton())
-			{
-				Intake.Set(-1);
-				Wait(0.005);
-				Intake.Set(0);
-			}
-
-		Wait(0.005);
+		{
+			Intake.Set(-1); //do you want this to be 100%?
+		}else
+		{
+			Intake.Set(0);
+		}
 	}
-
 }
 
 	/*
