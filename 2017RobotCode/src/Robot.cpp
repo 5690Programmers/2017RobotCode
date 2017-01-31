@@ -37,6 +37,7 @@ class Robot: public frc::SampleRobot {
 	frc::SendableChooser<std::string> chooser;
 	const std::string autoNameDefault = "Default";
 	const std::string autoNameCustom = "My Auto";
+	const std::string autoNameCustom1 = "Test 1";
 
 public:
 	Robot() {
@@ -65,6 +66,16 @@ public:
 			myRobot.Drive(-0.5, 1.0); // spin at half speed
 			frc::Wait(2.0);                // for 2 seconds
 			myRobot.Drive(0.0, 0.0);  // stop robot
+		}if (autoSelected == autoNameCustom1) {
+			// Custom Auto goes here
+			std::cout << "Running custom Autonomous 1" << std::endl;
+			myRobot.SetSafetyEnabled(false);
+			myRobot.Drive(-0.25, 1.0); // spin at quater speed
+			frc::Wait(4.0);                // for 4 seconds
+			myRobot.Drive(0.0, 0.0);  // stop robot
+			Climber.Set(-1); //climb for 1 sec (idk)
+			Wait(1.0);
+			Climber.Set(0);
 		} else {
 			// Default Auto goes here
 			std::cout << "Running default Autonomous" << std::endl;
