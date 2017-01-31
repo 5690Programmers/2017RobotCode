@@ -19,9 +19,11 @@
 #include <GamepadBase.h>
 
 
+
+
 class Robot: public frc::SampleRobot {
 	//Driving
-	frc::RobotDrive myRobot { 0, 1, 2, 3 };
+	frc::RobotDrive myRobot { 0, 1, 2, 3};
 	frc::Joystick stick { 1 };
 	frc::XboxController Xbox { 0 };
 	//Motors and Stuff
@@ -32,12 +34,19 @@ class Robot: public frc::SampleRobot {
 	frc::VictorSP Agitator { 4 };
 	frc::DoubleSolenoid Shifter1 { 0, 1 };
 	frc::DoubleSolenoid Shifter2 { 2, 3 };
-	//Addons
+	//Add ons
 	frc::ADXRS450_Gyro gyro;
+	//NetworkTable Steven;
 	frc::SendableChooser<std::string> chooser;
 	const std::string autoNameDefault = "Default";
 	const std::string autoNameCustom = "My Auto";
+<<<<<<< HEAD
 	const std::string autoNameCustom1 = "Test 1";
+=======
+	//Jetson
+
+
+>>>>>>> origin/master
 
 public:
 	Robot() {
@@ -46,11 +55,21 @@ public:
 	}
 
 	void RobotInit() {
+
+		//double boob = 0.3;
+
+
 		chooser.AddDefault(autoNameDefault, autoNameDefault);
 		chooser.AddObject(autoNameCustom, autoNameCustom);
 		frc::SmartDashboard::PutData("Auto Modes", &chooser);
 		frc::CameraServer::GetInstance()->StartAutomaticCapture();
 		gyro.Reset();
+//		Steven.SetTeam(5690);
+//		Steven.Initialize();
+//		Steven.SetUpdateRate(0.3);
+//		Steven.SetPort(5800);
+//		Steven.SetIPAddress("10.56.90.2");
+
 	}
 
 	//AUTONOMUS
@@ -63,7 +82,7 @@ public:
 			// Custom Auto goes here
 			std::cout << "Running custom Autonomous" << std::endl;
 			myRobot.SetSafetyEnabled(false);
-			myRobot.Drive(-0.5, 1.0); // spin at half speed
+			myRobot.Drive(0, 1.0); // spin at half speed
 			frc::Wait(2.0);                // for 2 seconds
 			myRobot.Drive(0.0, 0.0);  // stop robot
 		}if (autoSelected == autoNameCustom1) {
@@ -103,94 +122,108 @@ public:
 		myRobot.SetSafetyEnabled(true);
 		while (IsOperatorControl() && IsEnabled())
 		{
+		double deadzone = 0.3;
+		double MaxAxisRange = 1; // we need to find this
+		double y ;
+		double x ;
+		//NOT TESTED    "but will work now" -Logan
+
+		if(Xbox.GetX(XboxController::JoystickHand(0))/MaxAxisRange > deadzone || Xbox.GetX(XboxController::JoystickHand(0))/MaxAxisRange < -deadzone) {
+			x = Xbox.GetX(XboxController::JoystickHand(0));
+		}
+		if(Xbox.GetY(XboxController::JoystickHand(0)) > deadzone || Xbox.GetY(XboxController::JoystickHand(0)) < -deadzone) {
+			y = Xbox.GetY(XboxController::JoystickHand(0));
+		}
 		// drive with arcade style (use right stick)
-		myRobot.ArcadeDrive( Xbox.GetX(XboxController::JoystickHand(0)), Xbox.GetY(XboxController::JoystickHand(0)));
+		myRobot.ArcadeDrive( y, x/2, true);
 
 		// wait for a motor update time
 		frc::Wait(0.005);
 
-		//NOT TESTED
+
+
 		//Kicker Piston for Gear
 		if (Xbox.GetTriggerAxis(XboxController::JoystickHand(0)))
-			{
-				Kicker.Set(DoubleSolenoid::Value(1));
-				Wait(0.005);
-			}
+		{
+			Kicker.Set(DoubleSolenoid::Value(1));
+			Wait(0.005);
+		}
 		else
-			{
-				Kicker.Set(DoubleSolenoid::Value(2));
-				Wait(0.005);
-			}
+		{
+			Kicker.Set(DoubleSolenoid::Value(2));
+			Wait(0.005);
+		}
 		//Vision Tracking for Gear
 		if (Xbox.GetBumper(XboxController::JoystickHand(0)))
-			{
+		{
 
-			}
+		}
 
 		//Shooter Trigger
 		if (Xbox.GetTriggerAxis(XboxController::JoystickHand(1)))
-			{
-					Shooter.Set(1);
-					Wait(0.1);
-					Shooter.Set(0);
-
-			}
+		{
+				Shooter.Set(1);
+		}else
+		{
+				Shooter.Set(0);
+		}
 		//Vision Tracking for Shooter
 		if (Xbox.GetBumper(XboxController::JoystickHand(1)))
-			{
+		{
 
-			}
+		}
 
 
 		//Hooper Alligator ** Firmly cup the ball**
 		if (Xbox.GetAButton())
-			{
-				Agitator.Set(0.2);
-				Wait(0.1);
-				Agitator.Set(0);
-			}
+		{
+			Agitator.Set(0.2);
+		}else
+		{
+			Agitator.Set(0);
+		}
 
 		//Climber Down
 		if (Xbox.GetBackButton())
-			{
-				Climber.Set(-1);
-				Wait(0.1);
-				Climber.Set(0);
-			}
+		{
+			Climber.Set(-1); //do you want this to be 100%?
+		}else
+		{
+			Climber.Set(0);
+		}
 
 		//Climber Up
 		if (Xbox.GetStartButton())
-			{
-				Climber.Set(1);
-				Wait(0.1);
-				Climber.Set(0);
-			}
+		{
+			Climber.Set(1); //do you want this to be 100%?
+		}else
+		{
+			Climber.Set(0);
+		}
 
 		//Shifter
-		if (Xbox.GetXButton()&& Shifter1.Get()!=0&& Shifter2.Get()!=0)
-			{
-				Shifter1.Set(DoubleSolenoid::Value(1));
-				Shifter2.Set(DoubleSolenoid::Value(1));
-				Wait(0.005);
-			}
-		else
-			{
-				Shifter1.Set(DoubleSolenoid::Value(2));
-				Shifter2.Set(DoubleSolenoid::Value(2));
-				Wait(0.005);
-			}
+		if (Xbox.GetXButton()&& Shifter1.Get()!=0 && Shifter2.Get()!=0)
+		{
+			Shifter1.Set(DoubleSolenoid::Value(1));
+			Shifter2.Set(DoubleSolenoid::Value(1));
+			Wait(0.005);
+		}
+		else if (Xbox.GetXButton())
+		{
+			Shifter1.Set(DoubleSolenoid::Value(2));
+			Shifter2.Set(DoubleSolenoid::Value(2));
+			Wait(0.005);
+		}
 
 		 //Intake
 		if (Xbox.GetYButton())
-			{
-				Intake.Set(-1);
-				Wait(0.005);
-				Intake.Set(0);
-			}
-
-		Wait(0.005);
+		{
+			Intake.Set(-1); //do you want this to be 100%?
+		}else
+		{
+			Intake.Set(0);
+		}
 	}
-
 }
 
 	/*
