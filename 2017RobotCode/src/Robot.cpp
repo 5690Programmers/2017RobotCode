@@ -119,7 +119,7 @@ public:
 		double deadzone = 0.3;
 		double XboxY ;
 		double XboxX ;
-		/*
+
 		if(Xbox.GetX(XboxController::JoystickHand(0)) > deadzone || Xbox.GetX(XboxController::JoystickHand(0)) < -deadzone) {
 			XboxX = Xbox.GetX(XboxController::JoystickHand(0));
 		}else
@@ -132,12 +132,12 @@ public:
 		{
 			XboxY = 0;
 		}
-		*/
+
 
 		// drive with arcade style (use right stick)
-		//myRobot.ArcadeDrive( XboxY, XboxX/2, true);
+		myRobot.ArcadeDrive( XboxY, XboxX/2, true);
 
-		myRobot.ArcadeDrive(Xbox.GetY(XboxController::JoystickHand(0)), Xbox.GetX(XboxController::JoystickHand(1)));
+		//myRobot.ArcadeDrive(Xbox.GetY(XboxController::JoystickHand(0)), Xbox.GetX(XboxController::JoystickHand(1)));
 
 		// wait for a motor update time
 		frc::Wait(0.005);
