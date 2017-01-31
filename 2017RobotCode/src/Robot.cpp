@@ -18,9 +18,6 @@
 #include <GenericHID.h>
 #include <GamepadBase.h>
 
-
-
-
 class Robot: public frc::SampleRobot {
 	//Driving
 	frc::RobotDrive myRobot { 0, 1, 2, 3};
@@ -40,13 +37,10 @@ class Robot: public frc::SampleRobot {
 	frc::SendableChooser<std::string> chooser;
 	const std::string autoNameDefault = "Default";
 	const std::string autoNameCustom = "My Auto";
-<<<<<<< HEAD
 	const std::string autoNameCustom1 = "Test 1";
-=======
 	//Jetson
 
 
->>>>>>> origin/master
 
 public:
 	Robot() {
@@ -123,19 +117,27 @@ public:
 		while (IsOperatorControl() && IsEnabled())
 		{
 		double deadzone = 0.3;
-		double MaxAxisRange = 1; // we need to find this
-		double y ;
-		double x ;
-		//NOT TESTED    "but will work now" -Logan
-
-		if(Xbox.GetX(XboxController::JoystickHand(0))/MaxAxisRange > deadzone || Xbox.GetX(XboxController::JoystickHand(0))/MaxAxisRange < -deadzone) {
-			x = Xbox.GetX(XboxController::JoystickHand(0));
+		double XboxY ;
+		double XboxX ;
+		/*
+		if(Xbox.GetX(XboxController::JoystickHand(0)) > deadzone || Xbox.GetX(XboxController::JoystickHand(0)) < -deadzone) {
+			XboxX = Xbox.GetX(XboxController::JoystickHand(0));
+		}else
+		{
+			XboxX = 0;
 		}
 		if(Xbox.GetY(XboxController::JoystickHand(0)) > deadzone || Xbox.GetY(XboxController::JoystickHand(0)) < -deadzone) {
-			y = Xbox.GetY(XboxController::JoystickHand(0));
+			XboxY = Xbox.GetY(XboxController::JoystickHand(0));
+		}else
+		{
+			XboxY = 0;
 		}
+		*/
+
 		// drive with arcade style (use right stick)
-		myRobot.ArcadeDrive( y, x/2, true);
+		//myRobot.ArcadeDrive( XboxY, XboxX/2, true);
+
+		myRobot.ArcadeDrive(Xbox.GetY(XboxController::JoystickHand(0)), Xbox.GetX(XboxController::JoystickHand(1)));
 
 		// wait for a motor update time
 		frc::Wait(0.005);
@@ -202,17 +204,18 @@ public:
 		}
 
 		//Shifter
-		if (Xbox.GetXButton()&& Shifter1.Get()!=0 && Shifter2.Get()!=0)
+		if (Xbox.GetXButton() && Shifter1.Get()!=0 && Shifter1.Get()!=1)
 		{
 			Shifter1.Set(DoubleSolenoid::Value(1));
 			Shifter2.Set(DoubleSolenoid::Value(1));
-			Wait(0.005);
+
+			Wait(0.5);
 		}
-		else if (Xbox.GetXButton())
+		else if (Xbox.GetXButton() && Shifter1.Get() != 2)
 		{
 			Shifter1.Set(DoubleSolenoid::Value(2));
 			Shifter2.Set(DoubleSolenoid::Value(2));
-			Wait(0.005);
+			Wait(0.5);
 		}
 
 		 //Intake
