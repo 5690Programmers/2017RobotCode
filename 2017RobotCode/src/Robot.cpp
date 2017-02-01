@@ -117,8 +117,8 @@ public:
 		while (IsOperatorControl() && IsEnabled())
 		{
 		double deadzone = 0.3;
-		double XboxY ;
-		double XboxX ;
+		double XboxY;
+		double XboxX;
 
 		if(Xbox.GetX(XboxController::JoystickHand(0)) > deadzone || Xbox.GetX(XboxController::JoystickHand(0)) < -deadzone) {
 			XboxX = Xbox.GetX(XboxController::JoystickHand(0));
