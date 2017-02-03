@@ -18,6 +18,8 @@
 #include <GenericHID.h>
 #include <GamepadBase.h>
 
+
+
 class Robot: public frc::SampleRobot {
 	//Driving
 	frc::RobotDrive myRobot { 0, 1, 2, 3};
@@ -33,7 +35,7 @@ class Robot: public frc::SampleRobot {
 	frc::DoubleSolenoid Shifter2 { 2, 3 };
 	//Add ons
 	frc::ADXRS450_Gyro gyro;
-	//NetworkTable Steven;
+
 	frc::SendableChooser<std::string> chooser;
 	const std::string autoNameDefault = "Default";
 	const std::string autoNameCustom = "My Auto";
@@ -43,14 +45,15 @@ class Robot: public frc::SampleRobot {
 
 
 public:
+	std::shared_ptr<NetworkTable> Steven;
 	Robot() {
-
+		Steven = NetworkTable::GetTable("database");//Change database to the location of the vision code
 		myRobot.SetExpiration(0.1);
 	}
 
 	void RobotInit() {
 
-		//double boob = 0.3;
+		//double boo = 0.3;
 
 
 		chooser.AddDefault(autoNameDefault, autoNameDefault);
@@ -58,11 +61,11 @@ public:
 		frc::SmartDashboard::PutData("Auto Modes", &chooser);
 		frc::CameraServer::GetInstance()->StartAutomaticCapture();
 		gyro.Reset();
-//		Steven.SetTeam(5690);
-//		Steven.Initialize();
-//		Steven.SetUpdateRate(0.3);
-//		Steven.SetPort(5800);
-//		Steven.SetIPAddress("10.56.90.2");
+		Steven->SetTeam(5690);
+		Steven->Initialize();
+		Steven->SetUpdateRate(0.3);
+		Steven->SetPort(5800);
+		Steven->SetIPAddress("10.56.90.2");
 
 	}
 
