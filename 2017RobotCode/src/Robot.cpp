@@ -39,7 +39,7 @@ class Robot: public frc::SampleRobot {
 	frc::SendableChooser<std::string> chooser;
 	const std::string autoNameDefault = "Default";
 	const std::string autoNameCustom = "My Auto";
-	const std::string autoNameCustom1 = "Test 1";
+	const std::string TestAuto1 = "Test 1";
 	//Jetson
 
 
@@ -59,7 +59,7 @@ public:
 
 		chooser.AddDefault(autoNameDefault, autoNameDefault);
 		chooser.AddObject(autoNameCustom, autoNameCustom);
-		chooser.AddObject(autoNameCustom1, autoNameCustom1);
+		chooser.AddObject(TestAuto1, TestAuto1);
 		frc::SmartDashboard::PutData("Auto Modes", &chooser);
 		frc::CameraServer::GetInstance()->StartAutomaticCapture();
 		gyro.Reset();
@@ -92,9 +92,9 @@ public:
 		}
 			myRobot.Drive(0.0, 0.0); // stop robot
 
-		}if (autoSelected == autoNameCustom1) {
+		}if (autoSelected == TestAuto1) {
 			// Custom Auto goes here
-			std::cout << "Running custom Autonomous 1" << std::endl;
+			std::cout << "Running Test Autonomous 1" << std::endl;
 			myRobot.SetSafetyEnabled(false);
 			myRobot.Drive(0.5, 0);
 			Wait(1.5);
