@@ -59,6 +59,7 @@ public:
 
 		chooser.AddDefault(autoNameDefault, autoNameDefault);
 		chooser.AddObject(autoNameCustom, autoNameCustom);
+		chooser.AddObject(autoNameCustom1, autoNameCustom1);
 		frc::SmartDashboard::PutData("Auto Modes", &chooser);
 		frc::CameraServer::GetInstance()->StartAutomaticCapture();
 		gyro.Reset();
@@ -90,23 +91,19 @@ public:
 			myRobot.Drive(0, 0); //Stop
 		}
 			myRobot.Drive(0.0, 0.0); // stop robot
-		}if (autoSelected == autoNameCustom) {
-			// Custom Auto goes here
-			std::cout << "Running custom Autonomous" << std::endl;
-			myRobot.SetSafetyEnabled(false);
-			myRobot.Drive(0, 1.0); // spin at half speed
-			frc::Wait(2.0);                // for 2 seconds
-			myRobot.Drive(0.0, 0.0);  // stop robot
+
 		}if (autoSelected == autoNameCustom1) {
 			// Custom Auto goes here
 			std::cout << "Running custom Autonomous 1" << std::endl;
 			myRobot.SetSafetyEnabled(false);
-			myRobot.Drive(-0.25, 1.0); // spin at quater speed
-			frc::Wait(4.0);                // for 4 seconds
-			myRobot.Drive(0.0, 0.0);  // stop robot
-			Climber.Set(-1); //climb for 1 sec (idk)
-			Wait(1.0);
-			Climber.Set(0);
+			myRobot.Drive(0.5, 0);
+			Wait(1.5);
+			while(gyro.GetAngle() < 45){
+				myRobot.Drive(0.5, 0.6);
+			}
+			myRobot.Drive(0.5, 0);
+			//Vision Track
+			myRobot.Drive(0, 0);
 		} else {
 			// Default Auto goes here
 			std::cout << "Running default Autonomous" << std::endl;
