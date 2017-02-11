@@ -75,18 +75,19 @@ public:
 	void Autonomous() {
 		auto autoSelected = chooser.GetSelected();
 		static const float kP = 0.03;
+		float angle = gyro.GetAngle();// get heading
 		std::cout << "Auto selected: " << autoSelected << std::endl;
 
 		if (autoSelected == autoNameCustom) {
 				// Custom Auto goes here
 			std::cout << "Running custom Autonomous" << std::endl;
 			myRobot.SetSafetyEnabled(false);
+			gyro.Reset();
 			while (IsAutonomous())
 		{
-			float angle = gyro.GetAngle(); // get heading
 			myRobot.Drive(-1.0, -angle * kP); // turn to correct heading
 			Wait(0.004);
-			myRobot.Drive(0, 1); //Drive straight at 100%
+			myRobot.Drive(-0.5, 0); //Drive straight at 100%
 			Wait(2); //Drive forward for 2 seconds
 			myRobot.Drive(0, 0); //Stop
 		}
@@ -96,10 +97,11 @@ public:
 			// Custom Auto goes here
 			std::cout << "Running Test Autonomous 1" << std::endl;
 			myRobot.SetSafetyEnabled(false);
+			gyro.Reset();
 			myRobot.Drive(0.5, 0);
 			Wait(1.5);
-			while(gyro.GetAngle() < 45){
-				myRobot.Drive(0.5, 0.6);
+			while(IsAutonomous() and gyro.GetAngle() < 45){
+				myRobot.Drive(0.5, -0.6);
 			}
 			myRobot.Drive(0.5, 0);
 			//Vision Track
