@@ -40,6 +40,15 @@ class Robot: public frc::SampleRobot {
 	const std::string autoNameDefault = "Default";
 	const std::string autoNameCustom = "My Auto";
 	const std::string TestAuto1 = "Test 1";
+	const std::string bluelefttoleft = "Blue Left to Left";
+	const std::string bluelefttomid = "Blue Left to Mid";
+	const std::string bluelefttoright = "Blue Left to Right";
+	const std::string bluemidtoleft = "Blue Mid to Left";
+	const std::string bluemidtomid = "Blue Mid to Mid";
+	const std::string bluemidtoright = "Blue Mid to Right";
+	const std::string bluerighttoleft = "Blue Right to Left";
+	const std::string bluerighttomid = "Blue Right to Mid";
+	const std::string bluerighttoright = "Blue Right to Right";
 	//Jetson
 
 
@@ -60,6 +69,15 @@ public:
 		chooser.AddDefault(autoNameDefault, autoNameDefault);
 		chooser.AddObject(autoNameCustom, autoNameCustom);
 		chooser.AddObject(TestAuto1, TestAuto1);
+		chooser.AddObject(bluelefttoleft, bluelefttoleft);
+		chooser.AddObject(bluelefttomid, bluelefttomid);
+		chooser.AddObject(bluelefttoright, bluelefttoright);
+		chooser.AddObject(bluemidtoleft, bluemidtoleft);
+		chooser.AddObject(bluemidtomid, bluemidtomid);
+		chooser.AddObject(bluemidtoright, bluemidtoright);
+		chooser.AddObject(bluerighttoleft, bluerighttoleft);
+		chooser.AddObject(bluerighttomid, bluerighttomid);
+		chooser.AddObject(bluerighttoright, bluerighttoright);
 		frc::SmartDashboard::PutData("Auto Modes", &chooser);
 		frc::CameraServer::GetInstance()->StartAutomaticCapture();
 		gyro.Reset();
@@ -94,7 +112,7 @@ public:
 			myRobot.Drive(0.0, 0.0); // stop robot
 
 		}if (autoSelected == TestAuto1) {
-			// Custom Auto goes here
+			// Drives forward and then turns 45 degrees to the right
 			std::cout << "Running Test Autonomous 1" << std::endl;
 			myRobot.SetSafetyEnabled(false);
 			gyro.Reset();
@@ -106,7 +124,140 @@ public:
 			myRobot.Drive(0.5, 0);
 			//Vision Track
 			myRobot.Drive(0, 0);
-		} else {
+		}
+		if (autoSelected == bluelefttoleft) {
+			// Drives forward and then turns 45 degrees to the right
+			std::cout << "Running Test Autonomous 1" << std::endl;
+			myRobot.SetSafetyEnabled(false);
+			gyro.Reset();
+			myRobot.Drive(0.5, 0);
+			Wait(1.5);
+			while(IsAutonomous() and gyro.GetAngle() <= 45){
+				myRobot.Drive(0.5, -0.6);
+			}
+			//Vision Track
+			myRobot.Drive(0, 0);
+		}
+		if (autoSelected == bluelefttomid) {
+			//Turns 45 degrees to the right, drives forward and then turns 45 degrees to the left
+			std::cout << "Running Test Autonomous 1" << std::endl;
+			myRobot.SetSafetyEnabled(false);
+			gyro.Reset();
+			while(IsAutonomous() and gyro.GetAngle() <= 45){
+				myRobot.Drive(0.5, -0.6);
+			}
+			myRobot.Drive(0.5, 0);
+			Wait(1.5);
+			while(IsAutonomous() and gyro.GetAngle() >= 0){
+				myRobot.Drive(0.5, 0.6);
+			}
+			//Vision Track
+			myRobot.Drive(0, 0);
+		}
+		if (autoSelected == bluelefttoright) {
+			// Turns 75 degrees to the right, drives forward, then turns 115 degrees to the left
+			std::cout << "Running Test Autonomous 1" << std::endl;
+			myRobot.SetSafetyEnabled(false);
+			gyro.Reset();
+			while(IsAutonomous() and gyro.GetAngle() <= 75){
+				myRobot.Drive(0.5, -0.6);
+			}
+			myRobot.Drive(0.5, 0);
+			Wait(3);
+			while(IsAutonomous() and gyro.GetAngle() >= -45){
+				myRobot.Drive(0.5, 0.6);
+			}
+			//Vision Track
+			myRobot.Drive(0, 0);
+		}
+		if (autoSelected == bluemidtoleft) {
+			//Turns 45 degrees to the left, drives forward, then turns 90 degrees to the right
+			std::cout << "Running Test Autonomous 1" << std::endl;
+			myRobot.SetSafetyEnabled(false);
+			gyro.Reset();
+			while(IsAutonomous() and gyro.GetAngle() > -45){
+				myRobot.Drive(0.5, 0.6);
+			}
+			myRobot.Drive(0.5, 0);
+			Wait(1.5);
+			while(IsAutonomous() and gyro.GetAngle() < 45){
+				myRobot.Drive(0.5, -0.6);
+			}
+			//Vision Track
+			myRobot.Drive(0, 0);
+		}
+		if (autoSelected == bluemidtomid) {
+			// Drives forward and then turns 45 degrees to the right
+			std::cout << "Running Test Autonomous 1" << std::endl;
+			myRobot.SetSafetyEnabled(false);
+			gyro.Reset();
+			myRobot.Drive(0.5, 0);
+			Wait(0.5);
+			//Vision Track
+			myRobot.Drive(0, 0);
+		}
+		if (autoSelected == bluemidtoright) {
+			//Turns 45 degrees to the right, drives forward, then turns 90 degrees to the left
+			std::cout << "Running Test Autonomous 1" << std::endl;
+			myRobot.SetSafetyEnabled(false);
+			gyro.Reset();
+			while(IsAutonomous() and gyro.GetAngle() < 45){
+				myRobot.Drive(0.5, -0.6);
+			}
+			myRobot.Drive(0.5, 0);
+			Wait(1.5);
+			while(IsAutonomous() and gyro.GetAngle() > -45){
+				myRobot.Drive(0.5, 0.6);
+			}
+			//Vision Track
+			myRobot.Drive(0, 0);
+		}
+		if (autoSelected == bluerighttoleft) {
+			// Turns 75 degrees to the left, drives forward, then turns 115 degrees to the right
+			std::cout << "Running Test Autonomous 1" << std::endl;
+			myRobot.SetSafetyEnabled(false);
+			gyro.Reset();
+			while(IsAutonomous() and gyro.GetAngle() >= -75){
+				myRobot.Drive(0.5, 0.6);
+			}
+			myRobot.Drive(0.5, 0);
+			Wait(3);
+			while(IsAutonomous() and gyro.GetAngle() <= 45){
+				myRobot.Drive(0.5, -0.6);
+			}
+			//Vision Track
+			myRobot.Drive(0, 0);
+		}
+		if (autoSelected == bluerighttomid) {
+			//Turns 45 degrees to the left, drives forward and then turns 45 degrees to the right
+			std::cout << "Running Test Autonomous 1" << std::endl;
+			myRobot.SetSafetyEnabled(false);
+			gyro.Reset();
+			while(IsAutonomous() and gyro.GetAngle() >= -45){
+				myRobot.Drive(0.5, 0.6);
+			}
+			myRobot.Drive(0.5, 0);
+			Wait(1.5);
+			while(IsAutonomous() and gyro.GetAngle() >= 0){
+				myRobot.Drive(0.5, -0.6);
+			}
+			//Vision Track
+			myRobot.Drive(0, 0);
+		}
+		if (autoSelected == bluerighttoright) {
+			// Drives forward and then turns 45 degrees to the right
+			std::cout << "Running Test Autonomous 1" << std::endl;
+			myRobot.SetSafetyEnabled(false);
+			gyro.Reset();
+			myRobot.Drive(0.5, 0);
+			Wait(1.5);
+			while(IsAutonomous() and gyro.GetAngle() > -45){
+				myRobot.Drive(0.5, 0.6);
+			}
+			//Vision Track
+			myRobot.Drive(0, 0);
+		}
+		else {
 			// Default Auto goes here
 			std::cout << "Running default Autonomous" << std::endl;
 			myRobot.SetSafetyEnabled(false);
