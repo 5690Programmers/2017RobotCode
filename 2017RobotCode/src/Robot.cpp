@@ -37,9 +37,10 @@ class Robot: public frc::SampleRobot {
 	frc::ADXRS450_Gyro gyro;
 
 	frc::SendableChooser<std::string> chooser;
+
 	const std::string autoNameDefault = "Default";
 	const std::string autoNameCustom = "My Auto";
-	const std::string TestAuto1 = "Test 1";
+	const std::string TestAuto1 = "Test 1";/*
 	const std::string bluelefttoleft = "Blue Left to Left";
 	const std::string bluelefttomid = "Blue Left to Mid";
 	const std::string bluelefttoright = "Blue Left to Right";
@@ -50,7 +51,7 @@ class Robot: public frc::SampleRobot {
 	const std::string bluerighttomid = "Blue Right to Mid";
 	const std::string bluerighttoright = "Blue Right to Right";
 	//Jetson
-
+*/
 
 
 public:
@@ -69,15 +70,15 @@ public:
 		chooser.AddDefault(autoNameDefault, autoNameDefault);
 		chooser.AddObject(autoNameCustom, autoNameCustom);
 		chooser.AddObject(TestAuto1, TestAuto1);
-		chooser.AddObject(bluelefttoleft, bluelefttoleft);
-		chooser.AddObject(bluelefttomid, bluelefttomid);
-		chooser.AddObject(bluelefttoright, bluelefttoright);
-		chooser.AddObject(bluemidtoleft, bluemidtoleft);
-		chooser.AddObject(bluemidtomid, bluemidtomid);
-		chooser.AddObject(bluemidtoright, bluemidtoright);
-		chooser.AddObject(bluerighttoleft, bluerighttoleft);
-		chooser.AddObject(bluerighttomid, bluerighttomid);
-		chooser.AddObject(bluerighttoright, bluerighttoright);
+		//chooser.AddObject(bluelefttoleft, bluelefttoleft);
+		//chooser.AddObject(bluelefttomid, bluelefttomid);
+		//chooser.AddObject(bluelefttoright, bluelefttoright);
+		//chooser.AddObject(bluemidtoleft, bluemidtoleft);
+		//chooser.AddObject(bluemidtomid, bluemidtomid);
+		//chooser.AddObject(bluemidtoright, bluemidtoright);
+		//chooser.AddObject(bluerighttoleft, bluerighttoleft);
+		//chooser.AddObject(bluerighttomid, bluerighttomid);
+		//chooser.AddObject(bluerighttoright, bluerighttoright);
 		frc::SmartDashboard::PutData("Auto Modes", &chooser);
 		frc::CameraServer::GetInstance()->StartAutomaticCapture();
 		gyro.Reset();
@@ -124,7 +125,7 @@ public:
 			myRobot.Drive(0.5, 0);
 			//Vision Track
 			myRobot.Drive(0, 0);
-		}
+		}/*
 		if (autoSelected == bluelefttoleft) {
 			// Drives forward and then turns 45 degrees to the right
 			std::cout << "Running Test Autonomous 1" << std::endl;
@@ -256,7 +257,7 @@ public:
 			}
 			//Vision Track
 			myRobot.Drive(0, 0);
-		}
+		}*/
 		else {
 			// Default Auto goes here
 			std::cout << "Running default Autonomous" << std::endl;
