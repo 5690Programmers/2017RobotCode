@@ -11,6 +11,7 @@
 #include <RobotDrive.h>
 #include <Timer.h>
 #include <ADXRS450_Gyro.h>
+#include <ADXL362.h>
 #include <Spark.h>
 #include <NetworkTables/NetworkTable.h>
 #include <DoubleSolenoid.h>
