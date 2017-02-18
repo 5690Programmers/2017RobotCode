@@ -109,6 +109,8 @@ class Robot: public SampleRobot {
 		// get heading
 		std::cout << "Auto selected: Gear: " << Gear << " Start: "<< Start << " Color: " << Color << std::endl;
 
+		Shifter1.Set(DoubleSolenoid::Value(1));
+		Shifter2.Set(DoubleSolenoid::Value(1));
 
 		if ((Gear == gearleft) && (Start == startleft) && (Color == blue)) {
 			// Drives forward and then turns 45 degrees to the right
@@ -123,7 +125,7 @@ class Robot: public SampleRobot {
 			//Vision Track
 			myRobot.Drive(0, 0);
 		}
-		if ((Gear == gearmid) && (Start == startleft) && (Color == blue)) {
+		else if((Gear == gearmid) && (Start == startleft) && (Color == blue)) {
 			//Turns 45 degrees to the right, drives forward and then turns 45 degrees to the left
 			std::cout << "Running Test Autonomous 1" << std::endl;
 			myRobot.SetSafetyEnabled(false);
@@ -139,7 +141,7 @@ class Robot: public SampleRobot {
 			//Vision Track
 			myRobot.Drive(0, 0);
 		}
-		if ((Gear == gearright) && (Start == startleft) && (Color == blue)) {
+		else if((Gear == gearright) && (Start == startleft) && (Color == blue)) {
 			// Turns 75 degrees to the right, drives forward, then turns 115 degrees to the left
 			std::cout << "Running Test Autonomous 1" << std::endl;
 			myRobot.SetSafetyEnabled(false);
@@ -155,7 +157,7 @@ class Robot: public SampleRobot {
 			//Vision Track
 			myRobot.Drive(0, 0);
 		}
-		if ((Gear == gearleft) && (Start == startmid) && (Color == blue)) {
+		else if((Gear == gearleft) && (Start == startmid) && (Color == blue)) {
 			//Turns 45 degrees to the left, drives forward, then turns 90 degrees to the right
 			std::cout << "Running Test Autonomous 1" << std::endl;
 			myRobot.SetSafetyEnabled(false);
@@ -171,7 +173,7 @@ class Robot: public SampleRobot {
 			//Vision Track
 			myRobot.Drive(0, 0);
 		}
-		if ((Gear == gearmid) && (Start == startmid) && (Color == blue)) {
+		else if((Gear == gearmid) && (Start == startmid) && (Color == blue)) {
 			// Drives forward
 			std::cout << "Running Test Autonomous 1" << std::endl;
 			myRobot.SetSafetyEnabled(false);
@@ -181,7 +183,7 @@ class Robot: public SampleRobot {
 			//Vision Track
 			myRobot.Drive(0, 0);
 		}
-		if ((Gear == gearright) && (Start == startmid) && (Color == blue)) {
+		else if((Gear == gearright) && (Start == startmid) && (Color == blue)) {
 			//Turns 45 degrees to the right, drives forward, then turns 90 degrees to the left
 			std::cout << "Running Test Autonomous 1" << std::endl;
 			myRobot.SetSafetyEnabled(false);
@@ -197,7 +199,7 @@ class Robot: public SampleRobot {
 			//Vision Track
 			myRobot.Drive(0, 0);
 		}
-		if ((Gear == gearleft) && (Start == startright) && (Color == blue)) {
+		else if((Gear == gearleft) && (Start == startright) && (Color == blue)) {
 			// Turns 75 degrees to the left, drives forward, then turns 115 degrees to the right
 			std::cout << "Running Test Autonomous 1" << std::endl;
 			myRobot.SetSafetyEnabled(false);
@@ -213,7 +215,7 @@ class Robot: public SampleRobot {
 			//Vision Track
 			myRobot.Drive(0, 0);
 		}
-		if ((Gear == gearmid) && (Start == startright) && (Color == blue)) {
+		else if((Gear == gearmid) && (Start == startright) && (Color == blue)) {
 			//Turns 45 degrees to the left, drives forward and then turns 45 degrees to the right
 			std::cout << "Running Test Autonomous 1" << std::endl;
 			myRobot.SetSafetyEnabled(false);
@@ -229,7 +231,7 @@ class Robot: public SampleRobot {
 			//Vision Track
 			myRobot.Drive(0, 0);
 		}
-		if ((Gear == gearright) && (Start == startright) && (Color == blue)) {
+		else if((Gear == gearright) && (Start == startright) && (Color == blue)) {
 			// Drives forward and then turns 45 degrees to the left
 			std::cout << "Running Test Autonomous 1" << std::endl;
 			myRobot.SetSafetyEnabled(false);
@@ -243,7 +245,7 @@ class Robot: public SampleRobot {
 			//Vision Track
 			myRobot.Drive(0, 0);
 		}
-		if ((Gear == gearleft) && (Start == startleft) && (Color == red)) {
+		else if((Gear == gearleft) && (Start == startleft) && (Color == red)) {
 					// Drives forward and then turns 45 degrees to the right
 					std::cout << "Running Test Autonomous 1" << std::endl;
 					myRobot.SetSafetyEnabled(false);
@@ -256,7 +258,7 @@ class Robot: public SampleRobot {
 					//Vision Track
 					myRobot.Drive(0, 0);
 				}
-				if ((Gear == gearmid) && (Start == startleft) && (Color == red)) {
+		else if((Gear == gearmid) && (Start == startleft) && (Color == red)) {
 					//Turns 45 degrees to the right, drives forward and then turns 45 degrees to the left
 					std::cout << "Running Test Autonomous 1" << std::endl;
 					myRobot.SetSafetyEnabled(false);
@@ -272,7 +274,7 @@ class Robot: public SampleRobot {
 					//Vision Track
 					myRobot.Drive(0, 0);
 				}
-				if ((Gear == gearright) && (Start == startleft) && (Color == red)) {
+		else if((Gear == gearright) && (Start == startleft) && (Color == red)) {
 					// Turns 75 degrees to the right, drives forward, then turns 115 degrees to the left
 					std::cout << "Running Test Autonomous 1" << std::endl;
 					myRobot.SetSafetyEnabled(false);
@@ -288,7 +290,7 @@ class Robot: public SampleRobot {
 					//Vision Track
 					myRobot.Drive(0, 0);
 				}
-				if ((Gear == gearleft) && (Start == startmid) && (Color == red)) {
+		else if((Gear == gearleft) && (Start == startmid) && (Color == red)) {
 					//Turns 45 degrees to the left, drives forward, then turns 90 degrees to the right
 					std::cout << "Running Test Autonomous 1" << std::endl;
 					myRobot.SetSafetyEnabled(false);
@@ -304,7 +306,7 @@ class Robot: public SampleRobot {
 					//Vision Track
 					myRobot.Drive(0, 0);
 				}
-				if ((Gear == gearmid) && (Start == startmid) && (Color == red)) {
+		else if((Gear == gearmid) && (Start == startmid) && (Color == red)) {
 					// Drives forward
 					std::cout << "Running Test Autonomous 1" << std::endl;
 					myRobot.SetSafetyEnabled(false);
@@ -314,7 +316,7 @@ class Robot: public SampleRobot {
 					//Vision Track
 					myRobot.Drive(0, 0);
 				}
-				if ((Gear == gearright) && (Start == startmid) && (Color == red)) {
+		else if((Gear == gearright) && (Start == startmid) && (Color == red)) {
 					//Turns 45 degrees to the right, drives forward, then turns 90 degrees to the left
 					std::cout << "Running Test Autonomous 1" << std::endl;
 					myRobot.SetSafetyEnabled(false);
@@ -330,7 +332,7 @@ class Robot: public SampleRobot {
 					//Vision Track
 					myRobot.Drive(0, 0);
 				}
-				if ((Gear == gearleft) && (Start == startright) && (Color == red)) {
+		else if((Gear == gearleft) && (Start == startright) && (Color == red)) {
 					// Turns 75 degrees to the left, drives forward, then turns 115 degrees to the right
 					std::cout << "Running Test Autonomous 1" << std::endl;
 					myRobot.SetSafetyEnabled(false);
@@ -346,7 +348,7 @@ class Robot: public SampleRobot {
 					//Vision Track
 					myRobot.Drive(0, 0);
 				}
-				if ((Gear == gearmid) && (Start == startright) && (Color == red)) {
+		else if((Gear == gearmid) && (Start == startright) && (Color == red)) {
 					//Turns 45 degrees to the left, drives forward and then turns 45 degrees to the right
 					std::cout << "Running Test Autonomous 1" << std::endl;
 					myRobot.SetSafetyEnabled(false);
@@ -362,7 +364,7 @@ class Robot: public SampleRobot {
 					//Vision Track
 					myRobot.Drive(0, 0);
 				}
-				if ((Gear == gearright) && (Start == startright) && (Color == red)) {
+		else if((Gear == gearright) && (Start == startright) && (Color == red)) {
 					// Drives forward and then turns 45 degrees to the right
 					std::cout << "Running Test Autonomous 1" << std::endl;
 					myRobot.SetSafetyEnabled(false);
