@@ -229,7 +229,7 @@ class Robot: public SampleRobot {
 			myRobot.Drive(0, 0);
 		}
 		if ((Gear == gearright) && (Start == startright) && (Color == blue)) {
-			// Drives forward and then turns 45 degrees to the right
+			// Drives forward and then turns 45 degrees to the left
 			std::cout << "Running Test Autonomous 1" << std::endl;
 			myRobot.SetSafetyEnabled(false);
 
