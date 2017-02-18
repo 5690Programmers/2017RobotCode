@@ -509,7 +509,7 @@ class Robot: public SampleRobot {
 		 //Intake
 		if (Xbox.GetYButton())
 		{
-			Intake.Set(-0.75); //do you want this to be 100%?
+			Intake.Set(0.75); //do you want this to be 100%?
 		}else
 		{
 			Intake.Set(0);
