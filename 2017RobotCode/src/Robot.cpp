@@ -115,10 +115,10 @@ class Robot: public SampleRobot {
 			std::cout << "Running Test Autonomous 1" << std::endl;
 			myRobot.SetSafetyEnabled(false);
 			gyro.Reset();
-			myRobot.Drive(0.5, 0);
+			myRobot.Drive(-0.5, 0);
 			Wait(1.5);
 			while(IsAutonomous() && (gyro.GetAngle() <= 45)){
-				myRobot.Drive(0.5, -0.6);
+				myRobot.Drive(-0.5, -0.6);
 			}
 			//Vision Track
 			myRobot.Drive(0, 0);
@@ -129,12 +129,12 @@ class Robot: public SampleRobot {
 			myRobot.SetSafetyEnabled(false);
 			gyro.Reset();
 			while(IsAutonomous() && gyro.GetAngle() <= 45){
-				myRobot.Drive(0.5, -0.6);
+				myRobot.Drive(-0.5, -0.6);
 			}
-			myRobot.Drive(0.5, 0);
+			myRobot.Drive(-0.5, 0);
 			Wait(1.5);
 			while(IsAutonomous() && gyro.GetAngle() >= 0){
-				myRobot.Drive(0.5, 0.6);
+				myRobot.Drive(-0.5, 0.6);
 			}
 			//Vision Track
 			myRobot.Drive(0, 0);
@@ -145,12 +145,12 @@ class Robot: public SampleRobot {
 			myRobot.SetSafetyEnabled(false);
 			gyro.Reset();
 			while(IsAutonomous() && gyro.GetAngle() <= 75){
-				myRobot.Drive(0.5, -0.6);
+				myRobot.Drive(-0.5, -0.6);
 			}
-			myRobot.Drive(0.5, 0);
+			myRobot.Drive(-0.5, 0);
 			Wait(3);
 			while(IsAutonomous() && gyro.GetAngle() >= -45){
-				myRobot.Drive(0.5, 0.6);
+				myRobot.Drive(-0.5, 0.6);
 			}
 			//Vision Track
 			myRobot.Drive(0, 0);
@@ -161,12 +161,12 @@ class Robot: public SampleRobot {
 			myRobot.SetSafetyEnabled(false);
 			gyro.Reset();
 			while(IsAutonomous() && gyro.GetAngle() > -45){
-				myRobot.Drive(0.5, 0.6);
+				myRobot.Drive(-0.5, 0.6);
 			}
-			myRobot.Drive(0.5, 0);
+			myRobot.Drive(-0.5, 0);
 			Wait(1.5);
 			while(IsAutonomous() && gyro.GetAngle() < 45){
-				myRobot.Drive(0.5, -0.6);
+				myRobot.Drive(-0.5, -0.6);
 			}
 			//Vision Track
 			myRobot.Drive(0, 0);
@@ -176,7 +176,7 @@ class Robot: public SampleRobot {
 			std::cout << "Running Test Autonomous 1" << std::endl;
 			myRobot.SetSafetyEnabled(false);
 			gyro.Reset();
-			myRobot.Drive(0.5, 0);
+			myRobot.Drive(-0.5, 0);
 			Wait(0.5);
 			//Vision Track
 			myRobot.Drive(0, 0);
@@ -187,12 +187,12 @@ class Robot: public SampleRobot {
 			myRobot.SetSafetyEnabled(false);
 			gyro.Reset();
 			while(IsAutonomous() && gyro.GetAngle() < 45){
-				myRobot.Drive(0.5, -0.6);
+				myRobot.Drive(-0.5, -0.6);
 			}
-			myRobot.Drive(0.5, 0);
+			myRobot.Drive(-0.5, 0);
 			Wait(1.5);
 			while(IsAutonomous() && gyro.GetAngle() > -45){
-				myRobot.Drive(0.5, 0.6);
+				myRobot.Drive(-0.5, 0.6);
 			}
 			//Vision Track
 			myRobot.Drive(0, 0);
@@ -203,12 +203,12 @@ class Robot: public SampleRobot {
 			myRobot.SetSafetyEnabled(false);
 			gyro.Reset();
 			while(IsAutonomous() && gyro.GetAngle() >= -75){
-				myRobot.Drive(0.5, 0.6);
+				myRobot.Drive(-0.5, 0.6);
 			}
-			myRobot.Drive(0.5, 0);
+			myRobot.Drive(-0.5, 0);
 			Wait(3);
 			while(IsAutonomous() && gyro.GetAngle() <= 45){
-				myRobot.Drive(0.5, -0.6);
+				myRobot.Drive(-0.5, -0.6);
 			}
 			//Vision Track
 			myRobot.Drive(0, 0);
@@ -219,12 +219,12 @@ class Robot: public SampleRobot {
 			myRobot.SetSafetyEnabled(false);
 			gyro.Reset();
 			while(IsAutonomous() && gyro.GetAngle() >= -45){
-				myRobot.Drive(0.5, 0.6);
+				myRobot.Drive(-0.5, 0.6);
 			}
-			myRobot.Drive(0.5, 0);
+			myRobot.Drive(-0.5, 0);
 			Wait(1.5);
 			while(IsAutonomous() && gyro.GetAngle() >= 0){
-				myRobot.Drive(0.5, -0.6);
+				myRobot.Drive(-0.5, -0.6);
 			}
 			//Vision Track
 			myRobot.Drive(0, 0);
@@ -235,10 +235,10 @@ class Robot: public SampleRobot {
 			myRobot.SetSafetyEnabled(false);
 
 			gyro.Reset();
-			myRobot.Drive(0.5, 0);
+			myRobot.Drive(-0.5, 0);
 			Wait(1.5);
 			while(IsAutonomous() && gyro.GetAngle() > -45){
-				myRobot.Drive(0.5, 0.6);
+				myRobot.Drive(-0.5, 0.6);
 			}
 			//Vision Track
 			myRobot.Drive(0, 0);
@@ -248,10 +248,10 @@ class Robot: public SampleRobot {
 					std::cout << "Running Test Autonomous 1" << std::endl;
 					myRobot.SetSafetyEnabled(false);
 					gyro.Reset();
-					myRobot.Drive(0.5, 0);
+					myRobot.Drive(-0.5, 0);
 					Wait(1.5);
 					while(IsAutonomous() && (gyro.GetAngle() <= 45)){
-						myRobot.Drive(0.5, -0.6);
+						myRobot.Drive(-0.5, -0.6);
 					}
 					//Vision Track
 					myRobot.Drive(0, 0);
@@ -262,12 +262,12 @@ class Robot: public SampleRobot {
 					myRobot.SetSafetyEnabled(false);
 					gyro.Reset();
 					while(IsAutonomous() && gyro.GetAngle() <= 45){
-						myRobot.Drive(0.5, -0.6);
+						myRobot.Drive(-0.5, -0.6);
 					}
-					myRobot.Drive(0.5, 0);
+					myRobot.Drive(-0.5, 0);
 					Wait(1.5);
 					while(IsAutonomous() && gyro.GetAngle() >= 0){
-						myRobot.Drive(0.5, 0.6);
+						myRobot.Drive(-0.5, 0.6);
 					}
 					//Vision Track
 					myRobot.Drive(0, 0);
@@ -278,12 +278,12 @@ class Robot: public SampleRobot {
 					myRobot.SetSafetyEnabled(false);
 					gyro.Reset();
 					while(IsAutonomous() && gyro.GetAngle() <= 75){
-						myRobot.Drive(0.5, -0.6);
+						myRobot.Drive(-0.5, -0.6);
 					}
-					myRobot.Drive(0.5, 0);
+					myRobot.Drive(-0.5, 0);
 					Wait(3);
 					while(IsAutonomous() && gyro.GetAngle() >= -45){
-						myRobot.Drive(0.5, 0.6);
+						myRobot.Drive(-0.5, 0.6);
 					}
 					//Vision Track
 					myRobot.Drive(0, 0);
@@ -294,12 +294,12 @@ class Robot: public SampleRobot {
 					myRobot.SetSafetyEnabled(false);
 					gyro.Reset();
 					while(IsAutonomous() && gyro.GetAngle() > -45){
-						myRobot.Drive(0.5, 0.6);
+						myRobot.Drive(-0.5, 0.6);
 					}
-					myRobot.Drive(0.5, 0);
+					myRobot.Drive(-0.5, 0);
 					Wait(1.5);
 					while(IsAutonomous() && gyro.GetAngle() < 45){
-						myRobot.Drive(0.5, -0.6);
+						myRobot.Drive(-0.5, -0.6);
 					}
 					//Vision Track
 					myRobot.Drive(0, 0);
@@ -309,7 +309,7 @@ class Robot: public SampleRobot {
 					std::cout << "Running Test Autonomous 1" << std::endl;
 					myRobot.SetSafetyEnabled(false);
 					gyro.Reset();
-					myRobot.Drive(0.5, 0);
+					myRobot.Drive(-0.5, 0);
 					Wait(0.5);
 					//Vision Track
 					myRobot.Drive(0, 0);
@@ -320,12 +320,12 @@ class Robot: public SampleRobot {
 					myRobot.SetSafetyEnabled(false);
 					gyro.Reset();
 					while(IsAutonomous() && gyro.GetAngle() < 45){
-						myRobot.Drive(0.5, -0.6);
+						myRobot.Drive(-0.5, -0.6);
 					}
-					myRobot.Drive(0.5, 0);
+					myRobot.Drive(-0.5, 0);
 					Wait(1.5);
 					while(IsAutonomous() && gyro.GetAngle() > -45){
-						myRobot.Drive(0.5, 0.6);
+						myRobot.Drive(-0.5, 0.6);
 					}
 					//Vision Track
 					myRobot.Drive(0, 0);
@@ -336,12 +336,12 @@ class Robot: public SampleRobot {
 					myRobot.SetSafetyEnabled(false);
 					gyro.Reset();
 					while(IsAutonomous() && gyro.GetAngle() >= -75){
-						myRobot.Drive(0.5, 0.6);
+						myRobot.Drive(-0.5, 0.6);
 					}
-					myRobot.Drive(0.5, 0);
+					myRobot.Drive(-0.5, 0);
 					Wait(3);
 					while(IsAutonomous() && gyro.GetAngle() <= 45){
-						myRobot.Drive(0.5, -0.6);
+						myRobot.Drive(-0.5, -0.6);
 					}
 					//Vision Track
 					myRobot.Drive(0, 0);
@@ -352,12 +352,12 @@ class Robot: public SampleRobot {
 					myRobot.SetSafetyEnabled(false);
 					gyro.Reset();
 					while(IsAutonomous() && gyro.GetAngle() >= -45){
-						myRobot.Drive(0.5, 0.6);
+						myRobot.Drive(-0.5, 0.6);
 					}
-					myRobot.Drive(0.5, 0);
+					myRobot.Drive(-0.5, 0);
 					Wait(1.5);
 					while(IsAutonomous() && gyro.GetAngle() >= 0){
-						myRobot.Drive(0.5, -0.6);
+						myRobot.Drive(-0.5, -0.6);
 					}
 					//Vision Track
 					myRobot.Drive(0, 0);
@@ -368,10 +368,10 @@ class Robot: public SampleRobot {
 					myRobot.SetSafetyEnabled(false);
 
 					gyro.Reset();
-					myRobot.Drive(0.5, 0);
+					myRobot.Drive(-0.5, 0);
 					Wait(1.5);
 					while(IsAutonomous() && gyro.GetAngle() > -45){
-						myRobot.Drive(0.5, 0.6);
+						myRobot.Drive(-0.5, 0.6);
 					}
 					//Vision Track
 					myRobot.Drive(0, 0);
@@ -381,7 +381,7 @@ class Robot: public SampleRobot {
 			// Default Auto goes here
 			std::cout << "Running default Autonomous" << std::endl;
 			myRobot.SetSafetyEnabled(false);
-			myRobot.Drive(0.5, 0.0); // drive forwards half speed
+			myRobot.Drive(-0.5, 0.0); // drive forwards half speed
 			frc::Wait(2.0);                // for 2 seconds
 			myRobot.Drive(0.0, 0.0);  // stop robot
 		}
