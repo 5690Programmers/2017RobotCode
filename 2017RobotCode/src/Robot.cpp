@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include <memory>
 #include <string>
 
@@ -17,12 +18,18 @@
 #include <XboxController.h>
 #include <GenericHID.h>
 #include <GamepadBase.h>
-
-
+/*
+struct ZedBarf{
+	float distance;
+	uint x;
+	uint y;
+	uint id;
+} barf;
+*/
 
 class Robot: public SampleRobot {
 	//Driving
-	frc::RobotDrive myRobot { 0, 1, 2, 3};
+	frc::RobotDrive myRobot { 2, 3, 0, 1};
 	frc::Joystick stick { 1 };
 	frc::XboxController Xbox { 0 };
 	//Motors and Stuff
@@ -42,6 +49,7 @@ class Robot: public SampleRobot {
 
 	const std::string red = "Red";
 	const std::string blue = "Blue";
+	const std::string basic = "Go Forward";
 	const std::string startright = "Right Start";
 	const std::string startmid = "Middle Start";
 	const std::string startleft = "Left Start";
@@ -52,10 +60,10 @@ class Robot: public SampleRobot {
 
 
 
-public:
+	public:
 	std::shared_ptr<NetworkTable> Steven;
 	Robot() {
-		Steven = NetworkTable::GetTable("database");//Change database to the location of the vision code
+		Steven = NetworkTable::GetTable("SmartDashboard");//Change database to the location of the vision code
 		myRobot.SetExpiration(0.1);
 	}
 
@@ -64,6 +72,7 @@ public:
 		//double boo = 0.3;
 		side.AddObject(red, red);
 		side.AddObject(blue, blue);
+		side.AddObject(basic, basic);
 		start.AddObject(startright, startright);
 		start.AddObject(startmid, startmid);
 		start.AddObject(startleft, startleft);
@@ -75,16 +84,24 @@ public:
 		frc::SmartDashboard::PutData("Start Position Selected", &start);
 		frc::CameraServer::GetInstance()->StartAutomaticCapture();
 		gyro.Reset();
+		/*
 		Steven->SetTeam(5690);
 		Steven->Initialize();
 		Steven->SetUpdateRate(0.3);
 		Steven->SetPort(5800);
 		Steven->SetIPAddress("10.56.90.2");
+		*/
+
 
 	}
 
 	//AUTONOMUS
 	void Autonomous() {
+		//std::string NTtableTest = Steven->GetString("ExampleDAB","");
+		//std::cout << "This is the line your looking for" << NTta2bleTest << std::endl;
+
+		// /home/admin/tracking
+
 		auto Gear = gear.GetSelected();
 		auto Start = start.GetSelected();
 		auto Color = side.GetSelected();
@@ -105,7 +122,7 @@ public:
 			//Vision Track
 			myRobot.Drive(0, 0);
 		}
-		if (Gear == gearmid && Start == startleft && Color == blue) {
+		if ((Gear == gearmid) && (Start == startleft) && (Color == blue)) {
 			//Turns 45 degrees to the right, drives forward and then turns 45 degrees to the left
 			std::cout << "Running Test Autonomous 1" << std::endl;
 			myRobot.SetSafetyEnabled(false);
@@ -121,7 +138,7 @@ public:
 			//Vision Track
 			myRobot.Drive(0, 0);
 		}
-		if (Gear == gearright && Start == startleft && Color == blue) {
+		if ((Gear == gearright) && (Start == startleft) && (Color == blue)) {
 			// Turns 75 degrees to the right, drives forward, then turns 115 degrees to the left
 			std::cout << "Running Test Autonomous 1" << std::endl;
 			myRobot.SetSafetyEnabled(false);
@@ -137,7 +154,7 @@ public:
 			//Vision Track
 			myRobot.Drive(0, 0);
 		}
-		if (Gear == gearleft && Start == startmid && Color == blue) {
+		if ((Gear == gearleft) && (Start == startmid) && (Color == blue)) {
 			//Turns 45 degrees to the left, drives forward, then turns 90 degrees to the right
 			std::cout << "Running Test Autonomous 1" << std::endl;
 			myRobot.SetSafetyEnabled(false);
@@ -153,7 +170,7 @@ public:
 			//Vision Track
 			myRobot.Drive(0, 0);
 		}
-		if (Gear == gearmid && Start == startmid && Color == blue) {
+		if ((Gear == gearmid) && (Start == startmid) && (Color == blue)) {
 			// Drives forward
 			std::cout << "Running Test Autonomous 1" << std::endl;
 			myRobot.SetSafetyEnabled(false);
@@ -163,7 +180,7 @@ public:
 			//Vision Track
 			myRobot.Drive(0, 0);
 		}
-		if (Gear == gearright && Start == startmid && Color == blue) {
+		if ((Gear == gearright) && (Start == startmid) && (Color == blue)) {
 			//Turns 45 degrees to the right, drives forward, then turns 90 degrees to the left
 			std::cout << "Running Test Autonomous 1" << std::endl;
 			myRobot.SetSafetyEnabled(false);
@@ -179,7 +196,7 @@ public:
 			//Vision Track
 			myRobot.Drive(0, 0);
 		}
-		if (Gear == gearleft && Start == startright && Color == blue) {
+		if ((Gear == gearleft) && (Start == startright) && (Color == blue)) {
 			// Turns 75 degrees to the left, drives forward, then turns 115 degrees to the right
 			std::cout << "Running Test Autonomous 1" << std::endl;
 			myRobot.SetSafetyEnabled(false);
@@ -195,7 +212,7 @@ public:
 			//Vision Track
 			myRobot.Drive(0, 0);
 		}
-		if (Gear == gearmid && Start == startright && Color == blue) {
+		if ((Gear == gearmid) && (Start == startright) && (Color == blue)) {
 			//Turns 45 degrees to the left, drives forward and then turns 45 degrees to the right
 			std::cout << "Running Test Autonomous 1" << std::endl;
 			myRobot.SetSafetyEnabled(false);
@@ -211,7 +228,7 @@ public:
 			//Vision Track
 			myRobot.Drive(0, 0);
 		}
-		if (Gear == gearright && Start == startright && Color == blue) {
+		if ((Gear == gearright) && (Start == startright) && (Color == blue)) {
 			// Drives forward and then turns 45 degrees to the right
 			std::cout << "Running Test Autonomous 1" << std::endl;
 			myRobot.SetSafetyEnabled(false);
@@ -229,7 +246,7 @@ public:
 			// Default Auto goes here
 			std::cout << "Running default Autonomous" << std::endl;
 			myRobot.SetSafetyEnabled(false);
-			myRobot.Drive(-0.5, 0.0); // drive forwards half speed
+			myRobot.Drive(0.5, 0.0); // drive forwards half speed
 			frc::Wait(2.0);                // for 2 seconds
 			myRobot.Drive(0.0, 0.0);  // stop robot
 		}
@@ -271,7 +288,7 @@ public:
 
 
 		// drive with arcade style (use right stick)
-		myRobot.ArcadeDrive( XboxY, XboxX/2, true);
+		myRobot.ArcadeDrive( XboxY, XboxX/1.5, true);
 
 		//myRobot.ArcadeDrive(Xbox.GetY(XboxController::JoystickHand(0)), Xbox.GetX(XboxController::JoystickHand(1)));
 
@@ -313,9 +330,9 @@ public:
 
 
 		//Hooper Alligator ** Firmly cup the ball**
-		if (Xbox.GetAButton())
+		if (Xbox.GetTriggerAxis(XboxController::JoystickHand(1)))
 		{
-			Agitator.Set(0.2);
+			Agitator.Set(Xbox.GetTriggerAxis(XboxController::JoystickHand(1)));
 		}else
 		{
 			Agitator.Set(0);
