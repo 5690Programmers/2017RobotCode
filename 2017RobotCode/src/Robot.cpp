@@ -71,13 +71,13 @@ class Robot: public SampleRobot {
 	void RobotInit() {
 
 		//double boo = 0.3;
-		side.AddObject(red, red);
+		side.AddDefault(red, red);
 		side.AddObject(blue, blue);
 		side.AddObject(basic, basic);
-		start.AddObject(startright, startright);
+		start.AddDefault(startright, startright);
 		start.AddObject(startmid, startmid);
 		start.AddObject(startleft, startleft);
-		gear.AddObject(gearright, gearright);
+		gear.AddDefault(gearright, gearright);
 		gear.AddObject(gearmid, gearmid);
 		gear.AddObject(gearleft, gearleft);
 		frc::SmartDashboard::PutData("Gear Selected", &gear);
