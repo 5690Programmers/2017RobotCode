@@ -226,6 +226,7 @@ class Robot: public SampleRobot {
 		double XboxY;
 		double XboxX;
 
+		frc::SmartDashboard::PutNumber("Angle", gyro.GetAngle());
 
 		if(Xbox.GetX(XboxController::JoystickHand(0)) > deadzone || Xbox.GetX(XboxController::JoystickHand(0)) < -deadzone) {
 			XboxX = Xbox.GetX(XboxController::JoystickHand(0));
