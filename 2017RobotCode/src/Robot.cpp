@@ -106,15 +106,16 @@ class Robot: public SampleRobot {
 			std::cout << "Running Test Autonomous 1" << std::endl;
 			myRobot.SetSafetyEnabled(false);
 			gyro.Reset();
-			myRobot.Drive(-0.5, 0.05);
-			Wait(1);
+			myRobot.Drive(-0.5, 0.015);
+			Wait(1.35);
 			myRobot.Drive(0,0);
-			Wait(0.25);
+			Wait(0.5);
 			while(IsAutonomous() && (gyro.GetAngle() <= 45)){
 				myRobot.Drive(-0.25, 0.6);
 			}
 			//Vision Track
-			myRobot.Drive(-0.25,0.05);
+			Wait(0.5);
+			myRobot.Drive(-0.25,0.03);
 			Wait(2);
 			myRobot.Drive(0, 0);
 		}
@@ -123,8 +124,8 @@ class Robot: public SampleRobot {
 			std::cout << "Running Test Autonomous 1" << std::endl;
 			myRobot.SetSafetyEnabled(false);
 			gyro.Reset();
-			myRobot.Drive(-0.25, 0.05);
-			Wait(2);
+			myRobot.Drive(-0.25, 0.03);
+			Wait(3);
 			//Vision Track
 			myRobot.Drive(0, 0);
 		}
@@ -134,15 +135,16 @@ class Robot: public SampleRobot {
 			myRobot.SetSafetyEnabled(false);
 
 			gyro.Reset();
-			myRobot.Drive(-0.5, 0.05);
-			Wait(1);
+			myRobot.Drive(-0.5, 0.015);
+			Wait(1.35);
 			myRobot.Drive(0,0);
-			Wait(0.25);
+			Wait(0.5);
 			while(IsAutonomous() && gyro.GetAngle() > -45){
 				myRobot.Drive(-0.25, -0.6);
 			}
+			Wait(0.5);
 			//Vision Track
-			myRobot.Drive(-0.25, 0.05);
+			myRobot.Drive(-0.25, 0.03);
 			Wait(2);
 			myRobot.Drive(0, 0);
 		}
@@ -151,15 +153,16 @@ class Robot: public SampleRobot {
 			std::cout << "Running Test Autonomous 1" << std::endl;
 			myRobot.SetSafetyEnabled(false);
 			gyro.Reset();
-			myRobot.Drive(-0.5, 0.05);
-			Wait(1);
+			myRobot.Drive(-0.5, 0.015);
+			Wait(1.35);
 			myRobot.Drive(0,0);
-			Wait(0.25);
+			Wait(0.5);
 			while(IsAutonomous() && (gyro.GetAngle() <= 45)){
 				myRobot.Drive(-0.25, 0.6);
 			}
+			Wait(0.5);
 			//Vision Track
-			myRobot.Drive(-0.25,0.05);
+			myRobot.Drive(-0.25,0.03);
 			Wait(2);
 			myRobot.Drive(0, 0);
 		}
@@ -168,8 +171,8 @@ class Robot: public SampleRobot {
 			std::cout << "Running Test Autonomous 1" << std::endl;
 			myRobot.SetSafetyEnabled(false);
 			gyro.Reset();
-			myRobot.Drive(-0.25, 0.05);
-			Wait(2);
+			myRobot.Drive(-0.25, 0.03);
+			Wait(3);
 			//Vision Track
 			myRobot.Drive(0, 0);
 		}
@@ -178,15 +181,16 @@ class Robot: public SampleRobot {
 			std::cout << "Running Test Autonomous 1" << std::endl;
 			myRobot.SetSafetyEnabled(false);
 			gyro.Reset();
-			myRobot.Drive(-0.5, 0.05);
-			Wait(1);
+			myRobot.Drive(-0.5, 0.015);
+			Wait(1.35);
 			myRobot.Drive(0,0);
-			Wait(0.25);
+			Wait(0.5);
 			while(IsAutonomous() && gyro.GetAngle() > -45){
 				myRobot.Drive(-0.25, -0.6);
 			}
+			Wait(0.5);
 			//Vision Track
-			myRobot.Drive(-0.25,0.05);
+			myRobot.Drive(-0.25,0.03);
 			Wait(2);
 			myRobot.Drive(0, 0);
 		}
