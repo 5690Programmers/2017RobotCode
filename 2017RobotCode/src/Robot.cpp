@@ -108,6 +108,8 @@ class Robot: public SampleRobot {
 			gyro.Reset();
 			myRobot.Drive(-0.5, 0);
 			Wait(0.75);
+			myRobot.Drive(0,0);
+			Wait(0.25);
 			while(IsAutonomous() && (gyro.GetAngle() <= 45)){
 				myRobot.Drive(-0.5, 0.6);
 			}
@@ -132,6 +134,8 @@ class Robot: public SampleRobot {
 			gyro.Reset();
 			myRobot.Drive(-0.5, 0);
 			Wait(0.75);
+			myRobot.Drive(0,0);
+			Wait(0.25);
 			while(IsAutonomous() && gyro.GetAngle() > -45){
 				myRobot.Drive(-0.5, -0.6);
 			}
@@ -145,6 +149,8 @@ class Robot: public SampleRobot {
 					gyro.Reset();
 					myRobot.Drive(-0.5, 0);
 					Wait(0.75);
+					myRobot.Drive(0,0);
+					Wait(0.25);
 					while(IsAutonomous() && (gyro.GetAngle() <= 45)){
 						myRobot.Drive(-0.5, 0.6);
 					}
@@ -169,6 +175,8 @@ class Robot: public SampleRobot {
 					gyro.Reset();
 					myRobot.Drive(-0.5, 0);
 					Wait(0.75);
+					myRobot.Drive(0,0);
+					Wait(0.25);
 					while(IsAutonomous() && gyro.GetAngle() > -45){
 						myRobot.Drive(0.5, 0.6);
 					}
