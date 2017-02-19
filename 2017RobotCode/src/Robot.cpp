@@ -43,6 +43,7 @@ class Robot: public SampleRobot {
 	frc::DoubleSolenoid Shifter2 { 2, 3 };
 	//Add ons
 	frc::ADXRS450_Gyro gyro;
+	frc::ADXL362 accel;
 
 	frc::SendableChooser<std::string> side;
 	frc::SendableChooser<std::string> start;
@@ -77,7 +78,7 @@ class Robot: public SampleRobot {
 		frc::SmartDashboard::PutData("Start Position Selected", &start);
 		frc::CameraServer::GetInstance()->StartAutomaticCapture();
 		gyro.Reset();
-		/*
+				/*
 		Steven->SetTeam(5690);
 		Steven->Initialize();
 		Steven->SetUpdateRate(0.3);
@@ -224,6 +225,7 @@ class Robot: public SampleRobot {
 		double deadzone = 0.3;
 		double XboxY;
 		double XboxX;
+
 
 		if(Xbox.GetX(XboxController::JoystickHand(0)) > deadzone || Xbox.GetX(XboxController::JoystickHand(0)) < -deadzone) {
 			XboxX = Xbox.GetX(XboxController::JoystickHand(0));
