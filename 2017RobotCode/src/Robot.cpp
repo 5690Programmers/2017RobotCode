@@ -21,11 +21,15 @@
 #include <GenericHID.h>
 #include <GamepadBase.h>
 
+/*Lights*/
+//#include "I2C.h"
+
 /* Vision */
 #include <open_sockets.h>
 #include <packets.h>
 #include <inet.h>
 
+//#define I2C_SLAVE_ADR 0x08 // ADXL345 I2C device address
 
 class Robot: public SampleRobot {
 	//Driving
@@ -92,7 +96,8 @@ class Robot: public SampleRobot {
 		frc::CameraServer::GetInstance()->StartAutomaticCapture();
 		gyro.Reset();
 
-
+		//I2C *I2Channel;
+		//I2Channel = new I2C(I2C::kOnboard, I2C_SLAVE_ADR);
 
 		/* Create Socket for getting data from Zed */
 		if (open_serverside_socket(&sockfd)) {
@@ -228,6 +233,7 @@ class Robot: public SampleRobot {
 
 	void OperatorControl() override
 	{
+		//int pixelPosition = 0;
 		int count = 0;
 		double deadzone = 0.3;
 		double XboxY;
@@ -301,6 +307,59 @@ class Robot: public SampleRobot {
 		// wait for a motor update time
 		frc::Wait(0.005);
 
+		/*Lights
+	if(Xbox.GetAButton()){
+	if(pixelPosition == 9){
+		pixelPosition = 0;
+	}
+	else{
+		pixelPosition += 1;
+	}
+}
+
+	if(Xbox.GetBButton()){
+		if(pixelPosition == 0){
+			pixelPosition = 9;
+		}
+	else{
+		pixelPosition -= 1;
+	}
+}
+
+switch(pixelPosition){
+	case 0:
+		I2CWrite(111);
+		break;
+	case 1:
+		I2CWrite(114);
+		break;
+	case 2:
+		I2CWrite(103);
+		break;
+	case 3:
+		I2CWrite(98);
+		break;
+	case 4:
+		I2CWrite(117);
+		break;
+	case 5:
+		I2CWrite(99);
+		break;
+	case 6:
+		I2CWrite(104);
+		break;
+	case 7:
+		I2CWrite(116);
+		break;
+	case 8:
+		I2CWrite(112);
+		break;
+	case 9:
+		I2CWrite(115);
+		break;
+}
+*/
+
 		//Shooter Trigger
 		if (Xbox.GetTriggerAxis(XboxController::JoystickHand(1)))
 		{
@@ -367,7 +426,11 @@ class Robot: public SampleRobot {
     {
 	}
 };
-
+/*
+void I2CWrite(data){
+	I2Channel->Write(I2C_SLAVE_ADR, data);
+}
+*/
 void Robot::visionTrack(struct track_packet *Steven) {
 
 //static unit x1
