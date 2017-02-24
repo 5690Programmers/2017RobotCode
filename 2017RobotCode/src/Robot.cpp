@@ -50,8 +50,8 @@ class Robot: public SampleRobot {
 	frc::DoubleSolenoid Shifter2 { 2, 3 };
 	//Add ons
 	frc::ADXRS450_Gyro gyro;
+	frc::ADXL362 accel;
 
-	frc::SendableChooser<std::string> gear;
 	frc::SendableChooser<std::string> side;
 	frc::SendableChooser<std::string> start;
 
@@ -64,6 +64,9 @@ class Robot: public SampleRobot {
 	const std::string gearright = "Right Gear";
 	const std::string gearmid = "Middle Gear";
 	const std::string gearleft = "Left Gear";
+
+
+	//Jetson
 
 
 
@@ -92,14 +95,11 @@ class Robot: public SampleRobot {
 		start.AddDefault(startright, startright);
 		start.AddObject(startmid, startmid);
 		start.AddObject(startleft, startleft);
-		gear.AddDefault(gearright, gearright);
-		gear.AddObject(gearmid, gearmid);
-		gear.AddObject(gearleft, gearleft);
-		frc::SmartDashboard::PutData("Gear Selected", &gear);
 		frc::SmartDashboard::PutData("Color Selected", &side);
 		frc::SmartDashboard::PutData("Start Position Selected", &start);
 		frc::CameraServer::GetInstance()->StartAutomaticCapture();
 		gyro.Reset();
+
 
 
 		/* Create Socket for getting data from Zed */
@@ -121,287 +121,110 @@ class Robot: public SampleRobot {
 	void Autonomous() {
 
 
-		auto Gear = gear.GetSelected();
 		auto Start = start.GetSelected();
 		auto Color = side.GetSelected();
 		// get heading
-		std::cout << "Auto selected: Gear: " << Gear << " Start: "<< Start << " Color: " << Color << std::endl;
+		std::cout << "Auto selected:Start: "<< Start << " Color: " << Color << std::endl;
 
-		Shifter1.Set(DoubleSolenoid::Value(1));
-		Shifter2.Set(DoubleSolenoid::Value(1));
 
-		if ((Gear == gearleft) && (Start == startleft) && (Color == blue)) {
+		if ((Start == startleft) && (Color == blue)) {
 			// Drives forward and then turns 45 degrees to the right
 			std::cout << "Running Test Autonomous 1" << std::endl;
 			myRobot.SetSafetyEnabled(false);
 			gyro.Reset();
-			myRobot.Drive(-0.5, 0);
-			Wait(1.5);
-			while(IsAutonomous() && (gyro.GetAngle() >= -45)){
-				myRobot.Drive(-0.5, -0.6);
+			myRobot.Drive(-0.5, 0.015);
+			Wait(1.35);
+			myRobot.Drive(0,0);
+			Wait(0.5);
+			while(IsAutonomous() && (gyro.GetAngle() <= 45)){
+				myRobot.Drive(-0.25, 0.6);
 			}
 			//Vision Track
+			Wait(0.5);
+			myRobot.Drive(-0.25,0.03);
+			Wait(2);
 			myRobot.Drive(0, 0);
 		}
-		else if((Gear == gearmid) && (Start == startleft) && (Color == blue)) {
-			//Turns 45 degrees to the right, drives forward and then turns 45 degrees to the left
-			std::cout << "Running Test Autonomous 1" << std::endl;
-			myRobot.SetSafetyEnabled(false);
-			gyro.Reset();
-			while(IsAutonomous() && gyro.GetAngle() >= -45){
-				myRobot.Drive(-0.5, -0.6);
-			}
-			myRobot.Drive(-0.5, 0);
-			Wait(1.5);
-			while(IsAutonomous() && gyro.GetAngle() <= 0){
-				myRobot.Drive(-0.5, 0.6);
-			}
-			//Vision Track
-			myRobot.Drive(0, 0);
-		}
-		else if((Gear == gearright) && (Start == startleft) && (Color == blue)) {
-			// Turns 75 degrees to the right, drives forward, then turns 115 degrees to the left
-			std::cout << "Running Test Autonomous 1" << std::endl;
-			myRobot.SetSafetyEnabled(false);
-			gyro.Reset();
-			while(IsAutonomous() && gyro.GetAngle() >= -75){
-				myRobot.Drive(-0.5, -0.6);
-			}
-			myRobot.Drive(-0.5, 0);
-			Wait(3);
-			while(IsAutonomous() && gyro.GetAngle() <= 45){
-				myRobot.Drive(-0.5, 0.6);
-			}
-			//Vision Track
-			myRobot.Drive(0, 0);
-		}
-		else if((Gear == gearleft) && (Start == startmid) && (Color == blue)) {
-			//Turns 45 degrees to the left, drives forward, then turns 90 degrees to the right
-			std::cout << "Running Test Autonomous 1" << std::endl;
-			myRobot.SetSafetyEnabled(false);
-			gyro.Reset();
-			while(IsAutonomous() && gyro.GetAngle() < 45){
-				myRobot.Drive(-0.5, 0.6);
-			}
-			myRobot.Drive(-0.5, 0);
-			Wait(1.5);
-			while(IsAutonomous() && gyro.GetAngle() > -45){
-				myRobot.Drive(-0.5, -0.6);
-			}
-			//Vision Track
-			myRobot.Drive(0, 0);
-		}
-		else if((Gear == gearmid) && (Start == startmid) && (Color == blue)) {
+		else if((Start == startmid) && (Color == blue)) {
 			// Drives forward
 			std::cout << "Running Test Autonomous 1" << std::endl;
 			myRobot.SetSafetyEnabled(false);
 			gyro.Reset();
-			myRobot.Drive(-0.5, 0);
-			Wait(0.5);
-			//Vision Track
-			myRobot.Drive(0, 0);
-		}
-		else if((Gear == gearright) && (Start == startmid) && (Color == blue)) {
-			//Turns 45 degrees to the right, drives forward, then turns 90 degrees to the left
-			std::cout << "Running Test Autonomous 1" << std::endl;
-			myRobot.SetSafetyEnabled(false);
-			gyro.Reset();
-			while(IsAutonomous() && gyro.GetAngle() > -45){
-				myRobot.Drive(-0.5, -0.6);
-			}
-			myRobot.Drive(-0.5, 0);
-			Wait(1.5);
-			while(IsAutonomous() && gyro.GetAngle() < 45){
-				myRobot.Drive(-0.5, 0.6);
-			}
-			//Vision Track
-			myRobot.Drive(0, 0);
-		}
-		else if((Gear == gearleft) && (Start == startright) && (Color == blue)) {
-			// Turns 75 degrees to the left, drives forward, then turns 115 degrees to the right
-			std::cout << "Running Test Autonomous 1" << std::endl;
-			myRobot.SetSafetyEnabled(false);
-			gyro.Reset();
-			while(IsAutonomous() && gyro.GetAngle() <= 75){
-				myRobot.Drive(-0.5, 0.6);
-			}
-			myRobot.Drive(-0.5, 0);
+			myRobot.Drive(-0.25, 0.03);
 			Wait(3);
-			while(IsAutonomous() && gyro.GetAngle() >= -45){
-				myRobot.Drive(-0.5, -0.6);
-			}
 			//Vision Track
 			myRobot.Drive(0, 0);
 		}
-		else if((Gear == gearmid) && (Start == startright) && (Color == blue)) {
-			//Turns 45 degrees to the left, drives forward and then turns 45 degrees to the right
-			std::cout << "Running Test Autonomous 1" << std::endl;
-			myRobot.SetSafetyEnabled(false);
-			gyro.Reset();
-			while(IsAutonomous() && gyro.GetAngle() <= 45){
-				myRobot.Drive(-0.5, 0.6);
-			}
-			myRobot.Drive(-0.5, 0);
-			Wait(1.5);
-			while(IsAutonomous() && gyro.GetAngle() >= 0){
-				myRobot.Drive(-0.5, -0.6);
-			}
-			//Vision Track
-			myRobot.Drive(0, 0);
-		}
-		else if((Gear == gearright) && (Start == startright) && (Color == blue)) {
+		else if((Start == startright) && (Color == blue)) {
 			// Drives forward and then turns 45 degrees to the left
 			std::cout << "Running Test Autonomous 1" << std::endl;
 			myRobot.SetSafetyEnabled(false);
 
 			gyro.Reset();
-			myRobot.Drive(-0.5, 0);
-			Wait(1.5);
-			while(IsAutonomous() && gyro.GetAngle() < 45){
-				myRobot.Drive(-0.5, 0.6);
+			myRobot.Drive(-0.5, 0.015);
+			Wait(1.35);
+			myRobot.Drive(0,0);
+			Wait(0.5);
+			while(IsAutonomous() && gyro.GetAngle() > -45){
+				myRobot.Drive(-0.25, -0.6);
 			}
+			Wait(0.5);
+			//Vision Track
+			myRobot.Drive(-0.25, 0.03);
+			Wait(2);
+			myRobot.Drive(0, 0);
+		}
+		else if((Start == startleft) && (Color == red)) {
+					// Drives forward and then turns 45 degrees to the right
+			std::cout << "Running Test Autonomous 1" << std::endl;
+			myRobot.SetSafetyEnabled(false);
+			gyro.Reset();
+			myRobot.Drive(-0.5, 0.015);
+			Wait(1.35);
+			myRobot.Drive(0,0);
+			Wait(0.5);
+			while(IsAutonomous() && (gyro.GetAngle() <= 45)){
+				myRobot.Drive(-0.25, 0.6);
+			}
+			Wait(0.5);
+			//Vision Track
+			myRobot.Drive(-0.25,0.03);
+			Wait(2);
+			myRobot.Drive(0, 0);
+		}
+		else if((Start == startmid) && (Color == red)) {
+			// Drives forward
+			std::cout << "Running Test Autonomous 1" << std::endl;
+			myRobot.SetSafetyEnabled(false);
+			gyro.Reset();
+			myRobot.Drive(-0.25, 0.03);
+			Wait(3);
 			//Vision Track
 			myRobot.Drive(0, 0);
 		}
-		else if((Gear == gearleft) && (Start == startleft) && (Color == red)) {
-					// Drives forward and then turns 45 degrees to the right
-					std::cout << "Running Test Autonomous 1" << std::endl;
-					myRobot.SetSafetyEnabled(false);
-					gyro.Reset();
-					myRobot.Drive(-0.5, 0);
-					Wait(1.5);
-					while(IsAutonomous() && (gyro.GetAngle() >= -45)){
-						myRobot.Drive(-0.5, -0.6);
-					}
-					//Vision Track
-					myRobot.Drive(0, 0);
-				}
-		else if((Gear == gearmid) && (Start == startleft) && (Color == red)) {
-					//Turns 45 degrees to the right, drives forward and then turns 45 degrees to the left
-					std::cout << "Running Test Autonomous 1" << std::endl;
-					myRobot.SetSafetyEnabled(false);
-					gyro.Reset();
-					while(IsAutonomous() && gyro.GetAngle() >= -45){
-						myRobot.Drive(-0.5, -0.6);
-					}
-					myRobot.Drive(-0.5, 0);
-					Wait(1.5);
-					while(IsAutonomous() && gyro.GetAngle() <= 0){
-						myRobot.Drive(-0.5, 0.6);
-					}
-					//Vision Track
-					myRobot.Drive(0, 0);
-				}
-		else if((Gear == gearright) && (Start == startleft) && (Color == red)) {
-					// Turns 75 degrees to the right, drives forward, then turns 115 degrees to the left
-					std::cout << "Running Test Autonomous 1" << std::endl;
-					myRobot.SetSafetyEnabled(false);
-					gyro.Reset();
-					while(IsAutonomous() && gyro.GetAngle() >= -75){
-						myRobot.Drive(-0.5, -0.6);
-					}
-					myRobot.Drive(-0.5, 0);
-					Wait(3);
-					while(IsAutonomous() && gyro.GetAngle() <= 45){
-						myRobot.Drive(-0.5, 0.6);
-					}
-					//Vision Track
-					myRobot.Drive(0, 0);
-				}
-		else if((Gear == gearleft) && (Start == startmid) && (Color == red)) {
-					//Turns 45 degrees to the left, drives forward, then turns 90 degrees to the right
-					std::cout << "Running Test Autonomous 1" << std::endl;
-					myRobot.SetSafetyEnabled(false);
-					gyro.Reset();
-					while(IsAutonomous() && gyro.GetAngle() < 45){
-						myRobot.Drive(-0.5, 0.6);
-					}
-					myRobot.Drive(-0.5, 0);
-					Wait(1.5);
-					while(IsAutonomous() && gyro.GetAngle() > -45){
-						myRobot.Drive(-0.5, -0.6);
-					}
-					//Vision Track
-					myRobot.Drive(0, 0);
-				}
-		else if((Gear == gearmid) && (Start == startmid) && (Color == red)) {
-					// Drives forward
-					std::cout << "Running Test Autonomous 1" << std::endl;
-					myRobot.SetSafetyEnabled(false);
-					gyro.Reset();
-					myRobot.Drive(-0.5, 0);
-					Wait(0.5);
-					//Vision Track
-					myRobot.Drive(0, 0);
-				}
-		else if((Gear == gearright) && (Start == startmid) && (Color == red)) {
-					//Turns 45 degrees to the right, drives forward, then turns 90 degrees to the left
-					std::cout << "Running Test Autonomous 1" << std::endl;
-					myRobot.SetSafetyEnabled(false);
-					gyro.Reset();
-					while(IsAutonomous() && gyro.GetAngle() > -45){
-						myRobot.Drive(-0.5, -0.6);
-					}
-					myRobot.Drive(-0.5, 0);
-					Wait(1.5);
-					while(IsAutonomous() && gyro.GetAngle() < 45){
-						myRobot.Drive(-0.5, 0.6);
-					}
-					//Vision Track
-					myRobot.Drive(0, 0);
-				}
-		else if((Gear == gearleft) && (Start == startright) && (Color == red)) {
-					// Turns 75 degrees to the left, drives forward, then turns 115 degrees to the right
-					std::cout << "Running Test Autonomous 1" << std::endl;
-					myRobot.SetSafetyEnabled(false);
-					gyro.Reset();
-					while(IsAutonomous() && gyro.GetAngle() <= 75){
-						myRobot.Drive(-0.5, 0.6);
-					}
-					myRobot.Drive(-0.5, 0);
-					Wait(3);
-					while(IsAutonomous() && gyro.GetAngle() >= -45){
-						myRobot.Drive(-0.5, -0.6);
-					}
-					//Vision Track
-					myRobot.Drive(0, 0);
-				}
-		else if((Gear == gearmid) && (Start == startright) && (Color == red)) {
-					//Turns 45 degrees to the left, drives forward and then turns 45 degrees to the right
-					std::cout << "Running Test Autonomous 1" << std::endl;
-					myRobot.SetSafetyEnabled(false);
-					gyro.Reset();
-					while(IsAutonomous() && gyro.GetAngle() <= 45){
-						myRobot.Drive(-0.5, 0.6);
-					}
-					myRobot.Drive(-0.5, 0);
-					Wait(1.5);
-					while(IsAutonomous() && gyro.GetAngle() >= 0){
-						myRobot.Drive(-0.5, -0.6);
-					}
-					//Vision Track
-					myRobot.Drive(0, 0);
-				}
-		else if((Gear == gearright) && (Start == startright) && (Color == red)) {
-					// Drives forward and then turns 45 degrees to the right
-					std::cout << "Running Test Autonomous 1" << std::endl;
-					myRobot.SetSafetyEnabled(false);
-
-					gyro.Reset();
-					myRobot.Drive(-0.5, 0);
-					Wait(1.5);
-					while(IsAutonomous() && gyro.GetAngle() < 45){
-						myRobot.Drive(-0.5, 0.6);
-					}
-					//Vision Track
-					myRobot.Drive(0, 0);
-				}
-
+		else if((Start == startright) && (Color == red)) {
+			// Drives forward and then turns 45 degrees to the right
+			std::cout << "Running Test Autonomous 1" << std::endl;
+			myRobot.SetSafetyEnabled(false);
+			gyro.Reset();
+			myRobot.Drive(-0.5, 0.015);
+			Wait(1.35);
+			myRobot.Drive(0,0);
+			Wait(0.5);
+			while(IsAutonomous() && gyro.GetAngle() > -45){
+				myRobot.Drive(-0.25, -0.6);
+			}
+			Wait(0.5);
+			//Vision Track
+			myRobot.Drive(-0.25,0.03);
+			Wait(2);
+			myRobot.Drive(0, 0);
+		}
 		else {
 			// Default Auto goes here
 			std::cout << "Running default Autonomous" << std::endl;
 			myRobot.SetSafetyEnabled(false);
-			myRobot.Drive(-0.5, 0.0); // drive forwards half speed
+			myRobot.Drive(-0.25, 0.0); // drive forwards half speed
 			frc::Wait(2.0);                // for 2 seconds
 			myRobot.Drive(0.0, 0.0);  // stop robot
 		}
@@ -460,6 +283,9 @@ class Robot: public SampleRobot {
 					myRobot.ArcadeDrive(Xbox);
 				}
 
+
+
+		frc::SmartDashboard::PutNumber("Angle", gyro.GetAngle());
 
 
 		if(Xbox.GetX(XboxController::JoystickHand(0)) > deadzone || Xbox.GetX(XboxController::JoystickHand(0)) < -deadzone) {
