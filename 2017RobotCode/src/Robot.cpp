@@ -34,14 +34,9 @@
 class Robot: public SampleRobot {
 	//Driving
 	frc::RobotDrive myRobot { 2, 3, 0, 1};
-	frc::Joystick stick { 1 };
 	frc::XboxController Xbox { 0 };
 	//Motors and Stuff
-	frc::VictorSP Kicker { 0 };
-	frc::VictorSP Shooter { 1 };
 	frc::VictorSP Climber { 2 };
-	frc::VictorSP Intake { 5 };
-	frc::VictorSP Agitator { 4 };
 	frc::DoubleSolenoid Shifter1 { 0, 1 };
 	frc::DoubleSolenoid Shifter2 { 2, 3 };
 	//Add ons
