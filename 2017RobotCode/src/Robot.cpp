@@ -26,14 +26,6 @@
 #include <packets.h>
 #include <inet.h>
 
-/*
-struct ZedBarf{
-	float distance;
-	uint x;
-	uint y;
-	uint id;
-} barf;
-*/
 
 class Robot: public SampleRobot {
 	//Driving
