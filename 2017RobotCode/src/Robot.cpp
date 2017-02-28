@@ -436,7 +436,16 @@ static const short midx = 366;
 static const short deadzone = 45;
 
 	avgx = (Steven->x1 + Steven->x2)/2;
-	if (Steven->range < 0){
+
+	/* if (Steven->range < 0){
+		myRobot.ArcadeDrive(0.0, 0.0);
+		return;
+		*/
+
+
+
+
+	if (Steven->range <= 10 && Steven->range >= 100){
 		myRobot.ArcadeDrive(0.0, 0.0);
 		return;
 	}
