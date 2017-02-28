@@ -22,18 +22,19 @@
 #include <GamepadBase.h>
 
 /*Lights*/
-//#include "I2C.h"
+#include "I2C.h"
+
 
 /* Vision */
 #include <open_sockets.h>
 #include <packets.h>
 #include <inet.h>
 
-//#define I2C_SLAVE_ADR 0x08 // ADXL345 I2C device address
+#define I2C_SLAVE_ADR 0x08 // ADXL345 I2C device address
 
 class Robot: public SampleRobot {
 	//Driving
-	frc::RobotDrive myRobot { 2, 3, 0, 1};
+	frc::RobotDrive myRobot { 3, 2, 1, 0}; //2, 3, 0, 1 is for Nigel Thronberry
 	frc::XboxController Xbox { 0 };
 	//Motors and Stuff
 	frc::VictorSP Climber { 2 };
@@ -56,7 +57,7 @@ class Robot: public SampleRobot {
 	const std::string gearmid = "Middle Gear";
 	const std::string gearleft = "Left Gear";
 
-
+	I2C *I2Channel;
 	//Jetson
 
 
@@ -66,6 +67,9 @@ class Robot: public SampleRobot {
 	Robot() {
 		myRobot.SetExpiration(0.1);
 	}
+
+
+
 
 	void visionTrack(struct track_packet *Steven);
 		  int					sockfd=0;             /* listen socket file descriptor */
@@ -91,8 +95,10 @@ class Robot: public SampleRobot {
 		frc::CameraServer::GetInstance()->StartAutomaticCapture();
 		gyro.Reset();
 
-		//I2C *I2Channel;
-		//I2Channel = new I2C(I2C::kOnboard, I2C_SLAVE_ADR);
+
+		I2Channel = new I2C(I2C::kOnboard, I2C_SLAVE_ADR);
+
+
 
 		/* Create Socket for getting data from Zed */
 		if (open_serverside_socket(&sockfd)) {
@@ -234,7 +240,7 @@ class Robot: public SampleRobot {
 
 	void OperatorControl() override
 	{
-		//int pixelPosition = 0;
+		int pixelPosition = 0;
 		int count = 0;
 		double deadzone = 0.3;
 		double XboxY;
@@ -308,7 +314,7 @@ class Robot: public SampleRobot {
 		// wait for a motor update time
 		frc::Wait(0.005);
 
-		/*Lights
+
 	if(Xbox.GetAButton()){
 	if(pixelPosition == 9){
 		pixelPosition = 0;
@@ -329,37 +335,37 @@ class Robot: public SampleRobot {
 
 switch(pixelPosition){
 	case 0:
-		I2CWrite(111);
+		I2Channel->Write(I2C_SLAVE_ADR, 111);
 		break;
 	case 1:
-		I2CWrite(114);
+		I2Channel->Write(I2C_SLAVE_ADR, 114);
 		break;
 	case 2:
-		I2CWrite(103);
+		I2Channel->Write(I2C_SLAVE_ADR, 103);
 		break;
 	case 3:
-		I2CWrite(98);
+		I2Channel->Write(I2C_SLAVE_ADR, 98);
 		break;
 	case 4:
-		I2CWrite(117);
+		I2Channel->Write(I2C_SLAVE_ADR, 117);
 		break;
 	case 5:
-		I2CWrite(99);
+		I2Channel->Write(I2C_SLAVE_ADR, 99);
 		break;
 	case 6:
-		I2CWrite(104);
+		I2Channel->Write(I2C_SLAVE_ADR, 104);
 		break;
 	case 7:
-		I2CWrite(116);
+		I2Channel->Write(I2C_SLAVE_ADR, 116);
 		break;
 	case 8:
-		I2CWrite(112);
+		I2Channel->Write(I2C_SLAVE_ADR, 112);
 		break;
 	case 9:
-		I2CWrite(115);
+		I2Channel->Write(I2C_SLAVE_ADR, 115);
 		break;
 }
-*/
+
 
 		//Shooter Trigger
 		if (Xbox.GetTriggerAxis(XboxController::JoystickHand(1)))
@@ -427,17 +433,16 @@ switch(pixelPosition){
     {
 	}
 };
-/*
-void I2CWrite(data){
-	I2Channel->Write(I2C_SLAVE_ADR, data);
-}
-*/
+
+
+
 void Robot::visionTrack(struct track_packet *Steven) {
 
 //static unit x1
 
 
 short avgx;  //average of the two contours
+
 static const short midx = 366;
 static const short deadzone = 45;
 
