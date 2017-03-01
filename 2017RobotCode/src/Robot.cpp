@@ -30,7 +30,7 @@
 #include <packets.h>
 #include <inet.h>
 
-#define I2C_SLAVE_ADR 0x08 // ADXL345 I2C device address
+//#define I2C_SLAVE_ADR 0x08 // ADXL345 I2C device address
 
 class Robot: public SampleRobot {
 	//Driving
@@ -425,7 +425,6 @@ switch(pixelPosition){
 		}
 	}
 
-
 	/*
 	 * Runs during test mode
 	 */
@@ -447,13 +446,6 @@ static const short midx = 366;
 static const short deadzone = 45;
 
 	avgx = (Steven->x1 + Steven->x2)/2;
-
-	/* if (Steven->range < 0){
-		myRobot.ArcadeDrive(0.0, 0.0);
-		return;
-		*/
-
-
 
 
 	if (Steven->range <= 10 && Steven->range >= 100){
