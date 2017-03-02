@@ -124,8 +124,6 @@ class Robot: public SampleRobot {
 		// get heading
 		std::cout << "Auto selected:Start: "<< Start << " Color: " << Color << std::endl;
 
-		//Shifter1.Set(DoubleSolenoid::Value(1));
-		//Shifter2.Set(DoubleSolenoid::Value(1));
 
 		if ((Start == startleft) && (Color == blue)) {
 			// Drives forward and then turns 45 degrees to the right
