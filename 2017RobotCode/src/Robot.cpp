@@ -37,7 +37,7 @@ class Robot: public SampleRobot {
 	frc::RobotDrive myRobot { 3, 2, 1, 0}; //2, 3, 0, 1 is for Nigel Thronberry
 	frc::XboxController Xbox { 0 };
 	//Motors and Stuff
-	frc::VictorSP Climber { 2 };
+	frc::VictorSP Climber { 4 };
 	frc::DoubleSolenoid Shifter1 { 0, 1 };
 	frc::DoubleSolenoid Shifter2 { 2, 3 };
 	//Add ons
@@ -124,6 +124,8 @@ class Robot: public SampleRobot {
 		// get heading
 		std::cout << "Auto selected:Start: "<< Start << " Color: " << Color << std::endl;
 
+		Shifter1.Set(DoubleSolenoid::Value(1));
+		Shifter2.Set(DoubleSolenoid::Value(1));
 
 		if ((Start == startleft) && (Color == blue)) {
 			// Drives forward and then turns 45 degrees to the right
@@ -131,7 +133,7 @@ class Robot: public SampleRobot {
 			myRobot.SetSafetyEnabled(false);
 			gyro.Reset();
 			myRobot.Drive(-0.5, 0.015);
-			Wait(1.35);
+			Wait(1.15);
 			myRobot.Drive(0,0);
 			Wait(0.5);
 			while(IsAutonomous() && (gyro.GetAngle() <= 45)){
@@ -160,7 +162,7 @@ class Robot: public SampleRobot {
 
 			gyro.Reset();
 			myRobot.Drive(-0.5, 0.015);
-			Wait(1.35);
+			Wait(1.15);
 			myRobot.Drive(0,0);
 			Wait(0.5);
 			while(IsAutonomous() && gyro.GetAngle() > -45){
@@ -178,7 +180,7 @@ class Robot: public SampleRobot {
 			myRobot.SetSafetyEnabled(false);
 			gyro.Reset();
 			myRobot.Drive(-0.5, 0.015);
-			Wait(1.35);
+			Wait(1.15);
 			myRobot.Drive(0,0);
 			Wait(0.5);
 			while(IsAutonomous() && (gyro.GetAngle() <= 45)){
@@ -206,7 +208,7 @@ class Robot: public SampleRobot {
 			myRobot.SetSafetyEnabled(false);
 			gyro.Reset();
 			myRobot.Drive(-0.5, 0.015);
-			Wait(1.35);
+			Wait(1.15);
 			myRobot.Drive(0,0);
 			Wait(0.5);
 			while(IsAutonomous() && gyro.GetAngle() > -45){
@@ -243,15 +245,16 @@ class Robot: public SampleRobot {
 		myRobot.SetSafetyEnabled(true);
 		while (IsOperatorControl() && IsEnabled())
 		{
-		/*Read info from zed socket */
+			/*Read info from zed socket */
+
 		n = get_packet(sockfd, &cli_addr, inbuffer);
 
 		 if (n>0) { // There was a message!
 
 		memcpy(&packid,inbuffer,sizeof(track.packet_id));
 		packid = ntohs(packid);
-		count++;
 		/* deal with that packet */
+
 		switch (packid) {
 			case PID_TRACK:
 			handle_track(inbuffer,n,&track);
@@ -281,11 +284,10 @@ class Robot: public SampleRobot {
 				{
 					myRobot.ArcadeDrive(Xbox);
 				}
-
+		 }
 
 
 		frc::SmartDashboard::PutNumber("Angle", gyro.GetAngle());
-
 
 		if(Xbox.GetX(XboxController::JoystickHand(0)) > deadzone || Xbox.GetX(XboxController::JoystickHand(0)) < -deadzone) {
 			XboxX = Xbox.GetX(XboxController::JoystickHand(0));
@@ -300,14 +302,11 @@ class Robot: public SampleRobot {
 			XboxY = 0;
 		}
 
-
 		// drive with arcade style (use right stick)
 		myRobot.ArcadeDrive( XboxY, XboxX/1.5, true);
 
-
 		// wait for a motor update time
 		frc::Wait(0.005);
-
 
 	if(Xbox.GetAButton()){
 	if(pixelPosition == 9){
@@ -326,7 +325,6 @@ class Robot: public SampleRobot {
 		pixelPosition -= 1;
 	}
 }
-
 switch(pixelPosition){
 	case 0:
 		I2Channel->Write(I2C_SLAVE_ADR, 111);
@@ -360,11 +358,10 @@ switch(pixelPosition){
 		break;
 }
 
-
 		//Shooter Trigger
 		if (Xbox.GetTriggerAxis(XboxController::JoystickHand(1)))
 		{
-				Climber.Set(1);
+				Climber.Set(Xbox.GetTriggerAxis(XboxController::JoystickHand(1)));
 		}else
 		{
 				Climber.Set(0);
@@ -374,7 +371,6 @@ switch(pixelPosition){
 		if (Xbox.GetXButton() && Shifter1.Get()!=0 && Shifter1.Get()!=1)
 		{
 			Shifter1.Set(DoubleSolenoid::Value(1));
-
 			Shifter2.Set(DoubleSolenoid::Value(1));
 
 			Wait(0.5);
@@ -388,7 +384,6 @@ switch(pixelPosition){
 
 		// read from zed socket
 		n = get_packet(sockfd, &cli_addr, inbuffer);
-
 		if (n>0) { // There was a message!
 
 		/* Find packet type */
@@ -417,7 +412,7 @@ switch(pixelPosition){
 		}
 	}
 		}
-	}
+
 
 	/*
 	 * Runs during test mode
