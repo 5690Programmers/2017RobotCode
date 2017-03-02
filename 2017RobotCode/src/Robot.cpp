@@ -137,11 +137,10 @@ class Robot: public SampleRobot {
 			while(IsAutonomous() && (gyro.GetAngle() <= 45)){
 				myRobot.Drive(-0.25, 0.6);
 			}
-			Wait(.5);
-			std::cout <<"...ACTIVATING..." << std::endl;
-							    visionTrack(&track);
+			//Vision Track
+			Wait(0.5);
 			myRobot.Drive(-0.25,0.03);
-			Wait(.5);
+			Wait(2);
 			myRobot.Drive(0, 0);
 		}
 		else if((Start == startmid) && (Color == blue)) {
@@ -149,10 +148,9 @@ class Robot: public SampleRobot {
 			std::cout << "Running Test Autonomous 1" << std::endl;
 			myRobot.SetSafetyEnabled(false);
 			gyro.Reset();
-			std::cout <<"...ACTIVATING..." << std::endl;
-							    visionTrack(&track);
 			myRobot.Drive(-0.25, 0.03);
-			Wait(.5);
+			Wait(3);
+			//Vision Track
 			myRobot.Drive(0, 0);
 		}
 		else if((Start == startright) && (Color == blue)) {
@@ -168,11 +166,10 @@ class Robot: public SampleRobot {
 			while(IsAutonomous() && gyro.GetAngle() > -45){
 				myRobot.Drive(-0.25, -0.6);
 			}
-			Wait(.5);
-			std::cout <<"...ACTIVATING..." << std::endl;
-							    visionTrack(&track);
+			Wait(0.5);
+			//Vision Track
 			myRobot.Drive(-0.25, 0.03);
-			Wait(.5);
+			Wait(2);
 			myRobot.Drive(0, 0);
 		}
 		else if((Start == startleft) && (Color == red)) {
@@ -188,10 +185,9 @@ class Robot: public SampleRobot {
 				myRobot.Drive(-0.25, 0.6);
 			}
 			Wait(0.5);
-			std::cout <<"...ACTIVATING..." << std::endl;
-							    visionTrack(&track);
+			//Vision Track
 			myRobot.Drive(-0.25,0.03);
-			Wait(.5);
+			Wait(2);
 			myRobot.Drive(0, 0);
 		}
 		else if((Start == startmid) && (Color == red)) {
@@ -199,10 +195,9 @@ class Robot: public SampleRobot {
 			std::cout << "Running Test Autonomous 1" << std::endl;
 			myRobot.SetSafetyEnabled(false);
 			gyro.Reset();
-			std::cout <<"...ACTIVATING..." << std::endl;
-							    visionTrack(&track);
 			myRobot.Drive(-0.25, 0.03);
-			Wait(.5);
+			Wait(3);
+			//Vision Track
 			myRobot.Drive(0, 0);
 		}
 		else if((Start == startright) && (Color == red)) {
@@ -218,10 +213,9 @@ class Robot: public SampleRobot {
 				myRobot.Drive(-0.25, -0.6);
 			}
 			Wait(0.5);
-			std::cout <<"...ACTIVATING..." << std::endl;
-							    visionTrack(&track);
+			//Vision Track
 			myRobot.Drive(-0.25,0.03);
-			Wait(.5);
+			Wait(2);
 			myRobot.Drive(0, 0);
 		}
 		else {
