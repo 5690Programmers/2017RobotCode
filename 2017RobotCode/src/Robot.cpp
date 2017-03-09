@@ -116,7 +116,16 @@ class Robot: public SampleRobot {
 
 	/* Autonomous */
 
+
+
+
+
+
+
+
+
 	void Autonomous() {
+
 
 
 		auto Start = start.GetSelected();
@@ -126,18 +135,24 @@ class Robot: public SampleRobot {
 
 		Shifter1.Set(DoubleSolenoid::Value(1));
 		Shifter2.Set(DoubleSolenoid::Value(1));
-
+		if (Color == blue){
+			I2Channel->Write(I2C_SLAVE_ADR, 111);
+		}
+		else{
+			I2Channel->Write(I2C_SLAVE_ADR, 114);
+		}
 		if ((Start == startleft) && (Color == blue)) {
 			// Drives forward and then turns 45 degrees to the right
 			std::cout << "Running Test Autonomous 1" << std::endl;
 			myRobot.SetSafetyEnabled(false);
-			gyro.Reset();
 			myRobot.Drive(-0.5, 0.015);
-			Wait(1.15);
+			Wait(0.75);
 			myRobot.Drive(0,0);
 			Wait(0.5);
-			while(IsAutonomous() && (gyro.GetAngle() <= 45)){
-				myRobot.Drive(-0.25, 0.6);
+			gyro.Reset();
+			while(IsAutonomous() && (gyro.GetAngle() <= 60)){
+				frc::SmartDashboard::PutNumber("Angle", gyro.GetAngle());
+				myRobot.Drive(-0.25, 0.8);
 			}
 			//Vision Track
 			Wait(0.5);
@@ -151,7 +166,7 @@ class Robot: public SampleRobot {
 			myRobot.SetSafetyEnabled(false);
 			gyro.Reset();
 			myRobot.Drive(-0.25, 0.03);
-			Wait(3);
+			Wait(8);
 			//Vision Track
 			myRobot.Drive(0, 0);
 		}
@@ -159,14 +174,14 @@ class Robot: public SampleRobot {
 			// Drives forward and then turns 45 degrees to the left
 			std::cout << "Running Test Autonomous 1" << std::endl;
 			myRobot.SetSafetyEnabled(false);
-
-			gyro.Reset();
 			myRobot.Drive(-0.5, 0.015);
-			Wait(1.15);
+			Wait(0.75);
 			myRobot.Drive(0,0);
 			Wait(0.5);
-			while(IsAutonomous() && gyro.GetAngle() > -45){
-				myRobot.Drive(-0.25, -0.6);
+			gyro.Reset();
+			while(IsAutonomous() && gyro.GetAngle() > -60){
+				frc::SmartDashboard::PutNumber("Angle", gyro.GetAngle());
+				myRobot.Drive(-0.25, -0.8);
 			}
 			Wait(0.5);
 			//Vision Track
@@ -178,18 +193,19 @@ class Robot: public SampleRobot {
 					// Drives forward and then turns 45 degrees to the right
 			std::cout << "Running Test Autonomous 1" << std::endl;
 			myRobot.SetSafetyEnabled(false);
-			gyro.Reset();
 			myRobot.Drive(-0.5, 0.015);
-			Wait(1.15);
+			Wait(0.75);
 			myRobot.Drive(0,0);
 			Wait(0.5);
-			while(IsAutonomous() && (gyro.GetAngle() <= 45)){
-				myRobot.Drive(-0.25, 0.6);
+			gyro.Reset();
+			while(IsAutonomous() && (gyro.GetAngle() <= 60)){
+				frc::SmartDashboard::PutNumber("Angle", gyro.GetAngle());
+				myRobot.Drive(-0.25, 0.8);
 			}
 			Wait(0.5);
 			//Vision Track
 			myRobot.Drive(-0.25,0.03);
-			Wait(2);
+			Wait(3);
 			myRobot.Drive(0, 0);
 		}
 		else if((Start == startmid) && (Color == red)) {
@@ -198,7 +214,7 @@ class Robot: public SampleRobot {
 			myRobot.SetSafetyEnabled(false);
 			gyro.Reset();
 			myRobot.Drive(-0.25, 0.03);
-			Wait(3);
+			Wait(8);
 			//Vision Track
 			myRobot.Drive(0, 0);
 		}
@@ -206,13 +222,14 @@ class Robot: public SampleRobot {
 			// Drives forward and then turns 45 degrees to the right
 			std::cout << "Running Test Autonomous 1" << std::endl;
 			myRobot.SetSafetyEnabled(false);
-			gyro.Reset();
 			myRobot.Drive(-0.5, 0.015);
-			Wait(1.15);
+			Wait(0.75);
 			myRobot.Drive(0,0);
 			Wait(0.5);
-			while(IsAutonomous() && gyro.GetAngle() > -45){
-				myRobot.Drive(-0.25, -0.6);
+			gyro.Reset();
+			while(IsAutonomous() && gyro.GetAngle() > -60){
+				frc::SmartDashboard::PutNumber("Angle", gyro.GetAngle());
+				myRobot.Drive(-0.25, -0.8);
 			}
 			Wait(0.5);
 			//Vision Track
@@ -307,24 +324,15 @@ class Robot: public SampleRobot {
 
 		// wait for a motor update time
 		frc::Wait(0.005);
-
+/*
 	if(Xbox.GetAButton()){
-	if(pixelPosition == 9){
-		pixelPosition = 0;
-	}
-	else{
-		pixelPosition += 1;
-	}
+		I2Channel->Write(I2C_SLAVE_ADR, 111);
 }
 
 	if(Xbox.GetBButton()){
-		if(pixelPosition == 0){
-			pixelPosition = 9;
-		}
-	else{
-		pixelPosition -= 1;
-	}
-}
+		I2Channel->Write(I2C_SLAVE_ADR, 114);
+}*/
+	/*
 switch(pixelPosition){
 	case 0:
 		I2Channel->Write(I2C_SLAVE_ADR, 111);
@@ -356,7 +364,7 @@ switch(pixelPosition){
 	case 9:
 		I2Channel->Write(I2C_SLAVE_ADR, 115);
 		break;
-}
+}*/
 
 		//Shooter Trigger
 		if (Xbox.GetTriggerAxis(XboxController::JoystickHand(1)))
