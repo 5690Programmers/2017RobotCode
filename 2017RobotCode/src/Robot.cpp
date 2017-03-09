@@ -56,6 +56,10 @@ class Robot: public SampleRobot {
 	const std::string gearright = "Right Gear";
 	const std::string gearmid = "Middle Gear";
 	const std::string gearleft = "Left Gear";
+	const std::string testing1 = "Testing1";
+	const std::string testing2 = "Testing2";
+
+
 
 	I2C *I2Channel;
 	//Jetson
@@ -90,6 +94,8 @@ class Robot: public SampleRobot {
 		start.AddDefault(startright, startright);
 		start.AddObject(startmid, startmid);
 		start.AddObject(startleft, startleft);
+		start.AddObject(testing1, testing1);
+		start.AddObject(testing2, testing2);
 		frc::SmartDashboard::PutData("Color Selected", &side);
 		frc::SmartDashboard::PutData("Start Position Selected", &start);
 		frc::CameraServer::GetInstance()->StartAutomaticCapture();
@@ -236,8 +242,9 @@ class Robot: public SampleRobot {
 			myRobot.Drive(-0.25,0.03);
 			Wait(2);
 			myRobot.Drive(0, 0);
-		}
-		else {
+		}if ((Start == testing1 ) && (Color == testing1 )){
+
+		}else {
 			// Default Auto goes here
 			std::cout << "Running default Autonomous" << std::endl;
 			myRobot.SetSafetyEnabled(false);
