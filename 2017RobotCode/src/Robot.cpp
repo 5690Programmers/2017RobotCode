@@ -34,19 +34,19 @@
 
 class Robot: public SampleRobot {
 	//Driving
-	frc::RobotDrive myRobot { 3, 2, 1, 0}; //2, 3, 0, 1 is for Nigel Thronberry
+	frc::RobotDrive myRobot { 3, 2, 1, 0}; //2, 3, 0, 1
 	frc::XboxController Xbox { 0 };
-	//Motors and Stuff
+	//Motors and Solenoids
 	frc::VictorSP Climber { 4 };
 	frc::DoubleSolenoid Shifter1 { 0, 1 };
 	frc::DoubleSolenoid Shifter2 { 2, 3 };
 	//Add ons
 	frc::ADXRS450_Gyro gyro;
-	frc::ADXL362 accel;
 
+	//Dashboard Choosers
 	frc::SendableChooser<std::string> side;
 	frc::SendableChooser<std::string> start;
-
+	//Dashboard Options
 	const std::string red = "Red";
 	const std::string blue = "Blue";
 	const std::string basic = "Go Forward";
@@ -56,21 +56,14 @@ class Robot: public SampleRobot {
 	const std::string gearright = "Right Gear";
 	const std::string gearmid = "Middle Gear";
 	const std::string gearleft = "Left Gear";
-
+	//Lights
 	I2C *I2Channel;
-	//Jetson
-
-
-
 
 	public:
 	Robot() {
 		myRobot.SetExpiration(0.1);
 	}
-
-
-
-
+	/* Vision Tracking Struct*/
 	void visionTrack(struct track_packet *Steven);
 		  int					sockfd=0;             /* listen socket file descriptor */
 		  struct sockaddr_in	cli_addr;           /* write-to-client socket address */
@@ -80,10 +73,7 @@ class Robot: public SampleRobot {
 		  struct track_packet   track;              /* a track packet */
 		  int 					time;				/* time of packet*/
 
-
 	void RobotInit() {
-
-		//double boo = 0.3;
 		side.AddDefault(red, red);
 		side.AddObject(blue, blue);
 		side.AddObject(basic, basic);
@@ -115,26 +105,13 @@ class Robot: public SampleRobot {
 	}
 
 	/* Autonomous */
-
-
-
-
-
-
-
-
-
 	void Autonomous() {
-
-
 
 		auto Start = start.GetSelected();
 		auto Color = side.GetSelected();
 		// get heading
 		std::cout << "Auto selected:Start: "<< Start << " Color: " << Color << std::endl;
 
-		Shifter1.Set(DoubleSolenoid::Value(1));
-		Shifter2.Set(DoubleSolenoid::Value(1));
 		if (Color == blue){
 			I2Channel->Write(I2C_SLAVE_ADR, 111);
 		}
@@ -145,115 +122,97 @@ class Robot: public SampleRobot {
 			// Drives forward and then turns 45 degrees to the right
 			std::cout << "Running Test Autonomous 1" << std::endl;
 			myRobot.SetSafetyEnabled(false);
-			myRobot.Drive(-0.5, 0.015);
+			myRobot.Drive(-0.5, 0);
 			Wait(0.75);
 			myRobot.Drive(0,0);
 			Wait(0.5);
 			gyro.Reset();
-			while(IsAutonomous() && (gyro.GetAngle() <= 60)){
+			while(IsAutonomous() && (gyro.GetAngle() <= 55)){
 				frc::SmartDashboard::PutNumber("Angle", gyro.GetAngle());
 				myRobot.Drive(-0.25, 0.8);
 			}
-			//Vision Track
-			Wait(0.5);
-			myRobot.Drive(-0.25,0.03);
-			Wait(2);
-			myRobot.Drive(0, 0);
+			myRobot.Drive(-0.5, 0);
+				Wait(4);
 		}
 		else if((Start == startmid) && (Color == blue)) {
 			// Drives forward
 			std::cout << "Running Test Autonomous 1" << std::endl;
 			myRobot.SetSafetyEnabled(false);
 			gyro.Reset();
-			myRobot.Drive(-0.25, 0.03);
+			myRobot.Drive(-0.25, 0);
 			Wait(8);
-			//Vision Track
 			myRobot.Drive(0, 0);
 		}
 		else if((Start == startright) && (Color == blue)) {
-			// Drives forward and then turns 45 degrees to the left
+
 			std::cout << "Running Test Autonomous 1" << std::endl;
 			myRobot.SetSafetyEnabled(false);
-			myRobot.Drive(-0.5, 0.015);
+			myRobot.Drive(-0.5, 0);
 			Wait(0.75);
 			myRobot.Drive(0,0);
 			Wait(0.5);
 			gyro.Reset();
-			while(IsAutonomous() && gyro.GetAngle() > -60){
+			while(IsAutonomous() && gyro.GetAngle() > -55){
 				frc::SmartDashboard::PutNumber("Angle", gyro.GetAngle());
 				myRobot.Drive(-0.25, -0.8);
 			}
-			Wait(0.5);
-			//Vision Track
-			myRobot.Drive(-0.25, 0.03);
-			Wait(2);
-			myRobot.Drive(0, 0);
+			myRobot.Drive(-0.5, 0);
+				Wait(4);
 		}
 		else if((Start == startleft) && (Color == red)) {
 					// Drives forward and then turns 45 degrees to the right
 			std::cout << "Running Test Autonomous 1" << std::endl;
 			myRobot.SetSafetyEnabled(false);
-			myRobot.Drive(-0.5, 0.015);
+			myRobot.Drive(-0.5, 0);
 			Wait(0.75);
 			myRobot.Drive(0,0);
 			Wait(0.5);
 			gyro.Reset();
-			while(IsAutonomous() && (gyro.GetAngle() <= 60)){
+			while(IsAutonomous() && (gyro.GetAngle() <= 55)){
 				frc::SmartDashboard::PutNumber("Angle", gyro.GetAngle());
 				myRobot.Drive(-0.25, 0.8);
 			}
-			Wait(0.5);
-			//Vision Track
-			myRobot.Drive(-0.25,0.03);
-			Wait(3);
-			myRobot.Drive(0, 0);
+			myRobot.Drive(-0.5, 0);
+				Wait(4);
 		}
 		else if((Start == startmid) && (Color == red)) {
 			// Drives forward
 			std::cout << "Running Test Autonomous 1" << std::endl;
 			myRobot.SetSafetyEnabled(false);
 			gyro.Reset();
-			myRobot.Drive(-0.25, 0.03);
+			myRobot.Drive(-0.25, 0);
 			Wait(8);
-			//Vision Track
 			myRobot.Drive(0, 0);
 		}
 		else if((Start == startright) && (Color == red)) {
 			// Drives forward and then turns 45 degrees to the right
 			std::cout << "Running Test Autonomous 1" << std::endl;
 			myRobot.SetSafetyEnabled(false);
-			myRobot.Drive(-0.5, 0.015);
+			myRobot.Drive(-0.5, 0);
 			Wait(0.75);
 			myRobot.Drive(0,0);
 			Wait(0.5);
 			gyro.Reset();
-			while(IsAutonomous() && gyro.GetAngle() > -60){
+			while(IsAutonomous() && gyro.GetAngle() > -55){
 				frc::SmartDashboard::PutNumber("Angle", gyro.GetAngle());
 				myRobot.Drive(-0.25, -0.8);
 			}
-			Wait(0.5);
-			//Vision Track
-			myRobot.Drive(-0.25,0.03);
-			Wait(2);
-			myRobot.Drive(0, 0);
+		myRobot.Drive(-0.5, 0);
+		Wait(4);
 		}
 		else {
 			// Default Auto goes here
 			std::cout << "Running default Autonomous" << std::endl;
 			myRobot.SetSafetyEnabled(false);
-			myRobot.Drive(-0.25, 0.0); // drive forwards half speed
-			frc::Wait(2.0);                // for 2 seconds
-			myRobot.Drive(0.0, 0.0);  // stop robot
+			myRobot.Drive(-0.25, 0.0);
+			frc::Wait(8.0);
+			myRobot.Drive(0.0, 0.0);
 		}
 	}
 
 	/*TELEOP*/
-
-
-
 	void OperatorControl() override
 	{
-		int pixelPosition = 0;
 		int count = 0;
 		double deadzone = 0.3;
 		double XboxY;
@@ -293,15 +252,15 @@ class Robot: public SampleRobot {
 		}
 
 		//Vision Tracking for Gear
-				if (Xbox.GetBumper(XboxController::JoystickHand(0)))
-				{
-					std::cout <<"...ACTIVATING..." << std::endl;
-				    visionTrack(&track);
-				}else
-				{
-					myRobot.ArcadeDrive(Xbox);
-				}
-		 }
+		if (Xbox.GetBumper(XboxController::JoystickHand(0)))
+		{
+			std::cout <<"...ACTIVATING..." << std::endl;
+			visionTrack(&track);
+		}else
+		{
+			myRobot.ArcadeDrive(Xbox);
+		}
+		}
 
 
 		frc::SmartDashboard::PutNumber("Angle", gyro.GetAngle());
@@ -324,47 +283,6 @@ class Robot: public SampleRobot {
 
 		// wait for a motor update time
 		frc::Wait(0.005);
-/*
-	if(Xbox.GetAButton()){
-		I2Channel->Write(I2C_SLAVE_ADR, 111);
-}
-
-	if(Xbox.GetBButton()){
-		I2Channel->Write(I2C_SLAVE_ADR, 114);
-}*/
-	/*
-switch(pixelPosition){
-	case 0:
-		I2Channel->Write(I2C_SLAVE_ADR, 111);
-		break;
-	case 1:
-		I2Channel->Write(I2C_SLAVE_ADR, 114);
-		break;
-	case 2:
-		I2Channel->Write(I2C_SLAVE_ADR, 103);
-		break;
-	case 3:
-		I2Channel->Write(I2C_SLAVE_ADR, 98);
-		break;
-	case 4:
-		I2Channel->Write(I2C_SLAVE_ADR, 117);
-		break;
-	case 5:
-		I2Channel->Write(I2C_SLAVE_ADR, 99);
-		break;
-	case 6:
-		I2Channel->Write(I2C_SLAVE_ADR, 104);
-		break;
-	case 7:
-		I2Channel->Write(I2C_SLAVE_ADR, 116);
-		break;
-	case 8:
-		I2Channel->Write(I2C_SLAVE_ADR, 112);
-		break;
-	case 9:
-		I2Channel->Write(I2C_SLAVE_ADR, 115);
-		break;
-}*/
 
 		//Shooter Trigger
 		if (Xbox.GetTriggerAxis(XboxController::JoystickHand(1)))
@@ -445,28 +363,21 @@ static const short deadzone = 45;
 
 	avgx = (Steven->x1 + Steven->x2)/2;
 
-	/* if (Steven->range < 0){
-		myRobot.ArcadeDrive(0.0, 0.0);
-		return;
-		*/
 
-
-
-
-	if (Steven->range <= 10 && Steven->range >= 100){
+	if (Steven->range <= 100000 && Steven->range >= 2100000000){ //Test Range Write here Min:  Max:
 		myRobot.ArcadeDrive(0.0, 0.0);
 		return;
 	}
 
 	if(avgx < (midx-deadzone)) //when average is less than the mid point turn left
 	{
-		myRobot.ArcadeDrive(-0.0,0.65); //check direction
+		myRobot.ArcadeDrive(-0.0,0.45); //check direction
 		Wait(.05);
 		std::cout <<"LEFT" << std::endl;
 	}
 	else if(avgx > (midx+deadzone))
 	{
-		myRobot.ArcadeDrive(-0.0, -0.65);
+		myRobot.ArcadeDrive(-0.0, -0.45);
 		Wait(.05);
 		std::cout <<"RIGHT" << std::endl;
 	}
